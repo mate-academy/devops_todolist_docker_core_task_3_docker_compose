@@ -22,5 +22,4 @@ EXPOSE 8080
 
 COPY entrypoint.sh /entrypoint.sh
 
-# Make sure we make the entrypoint.sh script executable
 RUN chmod +x /entrypoint.sh
