@@ -19,7 +19,7 @@ services:
     depends_on:
       - mysql-local
     restart: always
-    entrypoint: python manage.py runserver 0.0.0.0:8080 &&python manage.py migrate
+    entrypoint: python manage.py runserver 0.0.0.0:8080 && python manage.py migrate
 
   mysql-local:
     container_name: mysql-local
