@@ -17,12 +17,12 @@ services:
     networks:
       - db-network
     depends_on:
-      - mysq-local
+      - mysql-local
     restart: always
-    entrypoint: /entrypoint.sh
+    entrypoint: python manage.py runserver 0.0.0.0:8080 &&python manage.py migrate
 
-  mysq-local:
-    container_name: mysq-local
+  mysql-local:
+    container_name: mysql-local
     image: mysql-local:1.0.0
     build:
       context: .
@@ -34,8 +34,6 @@ services:
     volumes:
       - db-volume:/var/lib/mysql
 
-
-      
 networks:
   db-network:
     driver: bridge
