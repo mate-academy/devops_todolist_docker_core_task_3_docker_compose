@@ -7,7 +7,7 @@ WORKDIR /app
 COPY . .
 
 # Stage 2: Run Stage
-FROM python:${PYTHON_VERSION} as run
+FROM python:${PYTHON_VERSION}-slim as run
 
 WORKDIR /app
 
@@ -18,9 +18,6 @@ COPY --from=builder /app .
 RUN pip install --upgrade pip && \
     pip install -r requirements.txt
 
-RUN python manage.py migrate
-
 EXPOSE 8080
 
-# Run database migrations and start the Django application
-ENTRYPOINT ["python", "manage.py", "runserver", "0.0.0.0:8080"]
+ENTRYPOINT ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8080"]
