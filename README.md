@@ -38,10 +38,25 @@ or start on the [landing page](http://localhost:8000/)
 6. Todos should be stored in MySQL Database, with a persistent volume connected
 7. Create PR with your changes and attach it for validation on a platform
 
+### To start all services defined in docker-compose.yml, run:
 
+```bash
+docker-compose up
+```
 
+### To stop all running services, run:
+```bash
+docker-compose down
+```
 
+### Access app on http://0.0.0.0:8080/
 
+### To rebuild and restart the application:
+```bash
+docker-compose up -d --build
+```
 
+### Additional Information
 
-
+- Use `docker-compose ps` to see container statuses.
+- Check container logs with `docker-compose logs`.
