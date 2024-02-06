@@ -40,5 +40,5 @@ or start on the [landing page](http://localhost:8000/)
 
 #### How to run
 Execute "docker-compose up -d"
-Go to http://0.0.0.0:8081/
+Go to http://0.0.0.0:8080/
 To stop app execute "docker-compose down"

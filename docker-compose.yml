@@ -1,7 +1,4 @@
 version: '3'
-networks:
-  db-data-net:
-    driver: bridge
 services:
   pythonapp:
     image: app:1.0
@@ -9,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8081:8080"
+      - "8080:8080"
     environment:
       - PYTHONUNBUFFERED=1
     networks:
@@ -34,5 +31,8 @@ services:
       - MYSQL_PASSWORD=1234
     networks:
       - db-data-net
+networks:
+  db-data-net:
+    driver: bridge
 volumes:
   db-data:
