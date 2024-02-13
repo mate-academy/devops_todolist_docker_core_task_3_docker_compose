@@ -23,6 +23,11 @@ And then start the server (default: http://localhost:8000)
 Now you can browse the [API](http://localhost:8000/api/)
 or start on the [landing page](http://localhost:8000/)
 
+## Running via docker-compose
+Use  `docker-compose up -d` command for running app with mysql db
+Use `docker-compose down` command for stopping todo app and db
+
+
 ## Task
 #### Prerequisites
 - Fork this repository
