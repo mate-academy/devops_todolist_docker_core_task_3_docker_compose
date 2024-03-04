@@ -1,0 +1,38 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:1.0
+    build:
+      context: .
+      dockerfile: Dockerfile.mysql
+    container_name: mysql-container
+    restart: always
+    ports:
+      - "3306:3306"
+    networks:
+      - db-data-net
+    volumes:
+      - db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+  pythonapp:
+    image: pythonapp:1.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: todoapp-container
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    networks:
+      - db-data-net
+networks:
+  db-data-net:
+    driver: bridge
+volumes:
+  db-data:
