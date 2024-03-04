@@ -7,20 +7,24 @@ To run and stop containers with Docker Compose, follow these steps:
 
 ### Running Containers
 1. Navigate to the directory containing the Docker Compose file.
-2. Run the following command to start the containers:
+   
+```bash
+    cd /full/path/to/devops_todolist_docker_core_task_3_docker_compose
+```
 
-    ```bash
-    docker-compose up
-    ```
-
-   This will build and start both the MySQL database and the Todolist app.
-
-### Stopping Containers
-To stop the containers, press `Ctrl + C` in the terminal where `docker-compose up` is running. Alternatively, you can run the following command:
+1. Run the following command to start the containers:
 
 ```bash
-docker-compose down
+    docker-compose up -d
 ```
+
+This will build and start both the MySQL database and the Todolist app.
+
+### Stopping Containers
+To stop the containers you can run the following command:
+```bash 
+docker-compose down
+``` 
 
 Now you can browse the [API](http://localhost:8000/api/)
 or start on the [landing page](http://localhost:8000/)
