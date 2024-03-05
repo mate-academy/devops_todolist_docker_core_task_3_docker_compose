@@ -40,6 +40,14 @@ or start on the [landing page](http://localhost:8000/)
 
 
 
+## Running and Stopping the Application with Docker Compose
+### Starting the Application
+To start the application and all its dependent services, you can use the following command from the root of the project:
+'docker-compose up'. If you prefer to run the containers in the background, you can use the -d flag: 'docker-compose up -d'
+
+### Stopping the Application
+To stop the application and all the related services, you can use the following command:
+'docker-compose down'
 
 
 
