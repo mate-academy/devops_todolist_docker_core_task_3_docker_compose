@@ -2,13 +2,10 @@
 
 Django-Todolist is a todolist web application with the most basic features of most web apps, i.e. accounts/login, API and (somewhat) interactive UI.
 
----
-CSS | [Skeleton](http://getskeleton.com/)
-JS  | [jQuery](https://jquery.com/)
 
 To run and stop containers with docker-compose
 
-Run containers: 
+Run containers:
     - docker-compose up -d
 
 Now you can browse the [API](http://localhost:8000/api/)
