@@ -38,7 +38,23 @@ or start on the [landing page](http://localhost:8000/)
 6. Todos should be stored in MySQL Database, with a persistent volume connected
 7. Create PR with your changes and attach it for validation on a platform
 
-
+8. Download the application from github 
+Execute the next command
+git clone url_from_github
+9. You have to have Docker Desktop application on your computer
+10. Start your Docker Desktop application
+10. Open terminal in project folder that you cloned
+11. In order to start the application
+Execute the next command
+docker-compose up -d
+12. In order to check the statuses of the containers
+Execute the next command
+docker-compose ps
+13. Open your browser and enter the next URL
+localhost:8080
+14. In order to stop the containers
+Execute the next command
+docker-compose down
 
 
 
