@@ -12,7 +12,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - ENV=local
+      - PYTHONUNBUFFERED=1
     networks:
       - todo-net
     depends_on:
