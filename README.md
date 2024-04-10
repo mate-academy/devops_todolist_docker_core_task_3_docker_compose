@@ -38,10 +38,15 @@ or start on the [landing page](http://localhost:8000/)
 6. Todos should be stored in MySQL Database, with a persistent volume connected
 7. Create PR with your changes and attach it for validation on a platform
 
-
-
-
-
+Guidelines for Docker compose task
+1. Use comands: 
+docker pull shcherbanvasyl499/todolist-web
+docker pull shcherbanvasyl499/todolist-db
+2. Use comand: docker network create app-network
+Comand: docker compose up
+3. Follow the link http://localhost:8080/
+4. Use comand: docker compose down
+"To remove containers and network"
 
 
 

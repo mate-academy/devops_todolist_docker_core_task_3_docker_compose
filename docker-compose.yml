@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   db:
+    hostname: db
     build:
       context: .
       dockerfile: Dockerfile.mysql
