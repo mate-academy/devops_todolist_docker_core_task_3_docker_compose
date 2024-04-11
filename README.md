@@ -40,7 +40,8 @@ or start on the [landing page](http://localhost:8000/)
 
 Guidelines for Docker compose task
 1. Use comands:
-git clone https://github.com/SHCHERBANV/devops_todolist_docker_core_task_3_docker_compose.git
+git clone -b develop https://github.com/SHCHERBANV/devops_todolist_docker_core_task_3_docker_compose.git
 2. Use comand: docker compose up
+3. Run todolist-web container 
 3. Follow the link http://localhost:8080/
 4. Use comand: docker compose down -v "To remove containers, network and volume"
