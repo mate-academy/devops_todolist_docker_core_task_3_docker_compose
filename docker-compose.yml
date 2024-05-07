@@ -1,7 +1,4 @@
 version: '3'
-networks:
-  db-data-net:
-    driver: bridge
 services:
   pythonapp:
     image: app:1.0
@@ -36,4 +33,6 @@ services:
       - db-data-net
 volumes:
   db-data:
-
+networks:
+  db-data-net:
+    driver: bridge
