@@ -1,7 +1,4 @@
 version: '3'
-networks:
-  db-data-net:
-    driver: bridge
 services:
   mysql:
     image: mysql-local:1.0.0
@@ -38,3 +35,7 @@ services:
 
 volumes:
   db-data:
+
+networks:
+  db-data-net:
+    driver: bridge
