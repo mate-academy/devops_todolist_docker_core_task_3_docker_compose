@@ -4,7 +4,6 @@
 
 ```
 docker-compose up
-
 ```
 
 2. You can access app by typing "http://localhost:8080" in browser's address bar.
