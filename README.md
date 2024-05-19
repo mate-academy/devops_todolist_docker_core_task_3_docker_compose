@@ -39,9 +39,71 @@ or start on the [landing page](http://localhost:8000/)
 7. Create PR with your changes and attach it for validation on a platform
 
 
+---
+
+---
+
+---
 
 
+**In this task i made following changes in the files:** 
 
+1. **Firstly I ammended Dockerfile**
 
+    to run 2 shell commands on container start using ENTRYPOINT exec form:
 
+    ```sh
+    ENTRYPOINT ["executable", "param1", "param2"]
+    ENTRYPOINT ["sh", "-c" "python manage.py migrate && python manage.py runserver 0.0.0.0:8080"]
+    ```
 
+    where:
+
+    * **​`sh`​**: The shell executable.
+    *  **​`-c`​**: Instructs the shell to execute the following string as a command.
+    *  **​`"python manage.py migrate && python manage.py runserver 0.0.0.0:8080"`​** : The actual command string to be executed by the shell, which chains two Python commands together.
+
+    ---
+
+    which could be achieved similarly with ENTRYPOINT shell form:
+
+    ```sh
+    ENTRYPOINT command1 && command2
+    ENTRYPOINT python manage.py migrate && python manage.py runserver 0.0.0.0:8080
+    ```
+
+    however they say **Exec Form is Preferred for ENTRYPOINT**:
+    The exec form (`["sh", "-c", "commands"]`) is more robust and behaves more predictably
+2. **Secondly I ammended Database settings:** 
+
+    parameter reffered to host address with the  database container name.
+    As it is common practise to do in following cases:
+
+    1. **Within a single Docker Compose project**: Containers that are launched within the scope of a single `docker-compose.yml` file can use service names to communicate with each other.
+    2. **In custom user-defined networks**: If containers are connected to a shared user-defined network (created with `docker network create my_network`), they can also resolve each other by their names.
+
+---
+
+**instructions on how to run and stop containers with docker-compose**:
+
+* **FIRSTLY:**  prepare docker-compose file containing all necessary sections,
+  which can have either default docker-compose.yml / docker-compose.yaml name
+  or custom name *.yml / *.yaml
+
+  1. *default* docker-compose file start command
+
+      `docker-compose up`
+  2. *custom* name docker-compose file start command
+
+      `docker-compose -f my-custom-compose.yml up`
+* **SECONDLY:**  you can check the status of docker-compose managed containers with command:
+
+  `docker-compose ps`
+
+  *note: if you started docker-compose not in the --detached mode -&gt; use new terminal*
+* **THIRDLY:**  you can see the logs of docker-compose managed containers with command:
+
+  `docker-compose logs`
+* **LASTLY:**  to stop & remove docker compose managed containers use command:
+
+  `docker-compose down`
