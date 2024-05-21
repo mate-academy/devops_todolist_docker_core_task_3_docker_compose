@@ -38,6 +38,22 @@ or start on the [landing page](http://localhost:8000/)
 6. Todos should be stored in MySQL Database, with a persistent volume connected
 7. Create PR with your changes and attach it for validation on a platform
 
+---
+#### Instructions
+
+Run containers with docker-compose:
+```bash
+docker-compose up -d
+```
+
+Once both containers are running, you can access the application via a browser at:
+[http://localhost:8081](http://127.0.0.1:8081)
+
+Stop containers with docker-compose:
+```bash
+docker-compose down
+```
+
 
 
 
