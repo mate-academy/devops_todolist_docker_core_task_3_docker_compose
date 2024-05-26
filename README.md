@@ -39,6 +39,18 @@ or start on the [landing page](http://localhost:8000/)
 7. Create PR with your changes and attach it for validation on a platform
 
 
+#### Instructions
+
+Run containers with docker-compose:
+`docker-compose up -d`
+
+Once both containers are running, you can access the application via a browser at:
+[http://localhost:8081]
+
+Stop containers with docker-compose:
+`docker-compose down`
+
+
 
 
 
