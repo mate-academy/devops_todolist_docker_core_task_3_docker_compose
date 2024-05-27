@@ -14,13 +14,6 @@ WORKDIR /app
 ENV PYTHONUNBUFFERED=1
 
 COPY --from=builder /app .
-
+RUN chmod +x wait-for-it.sh
 RUN pip install --upgrade pip && \
     pip install -r requirements.txt
-
-RUN python manage.py migrate
-
-EXPOSE 8080
-
-# Run database migrations and start the Django application
-ENTRYPOINT ["python", "manage.py", "runserver", "0.0.0.0:8080"]
