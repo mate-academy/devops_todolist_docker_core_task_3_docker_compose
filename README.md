@@ -23,6 +23,22 @@ And then start the server (default: http://localhost:8000)
 Now you can browse the [API](http://localhost:8000/api/)
 or start on the [landing page](http://localhost:8000/)
 
+## How to run and stop containers with docker-compose
+Build and run containers
+
+    docker-compose up -d
+
+View network logs
+
+    docker-compose logs
+
+Stop containers
+
+    docker-compose stop
+
+## How to access the application via browser
+Open browser and proceed by following url http://0.0.0.0:8081/
+
 ## Task
 #### Prerequisites
 - Fork this repository
