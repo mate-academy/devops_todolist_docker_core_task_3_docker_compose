@@ -1,7 +1,7 @@
 ### Instruction how to use docker-compose
 - To run containers
 '''
-- docker-compose up -d
+docker-compose up -d
 '''
 - To stop containers
 '''
