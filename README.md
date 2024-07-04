@@ -40,11 +40,8 @@ or start on the [landing page](http://localhost:8000/)
 
 
 Commands:
-1. Add ports and host name to settings.py
-2. Edit RUN python manage.py migrate -> Entrypoint command at the end
-3. Create Docker-compose.yml file and make a config
-4. Run docker compose up
-5. Check the result
+1. docker compose up -d (started containers)
+2. docker compose down (stops containers)
 
 
 
