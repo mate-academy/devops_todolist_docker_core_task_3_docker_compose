@@ -13,7 +13,7 @@
 'docker-compose down'
 
 ## How to access the application via browser
-Open browser and enter the site via this link http://localhost:8081
+Open browser and enter the site via this link http://localhost:8080
 
 
 
