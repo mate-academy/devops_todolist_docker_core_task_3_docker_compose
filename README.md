@@ -2,15 +2,15 @@
 
 -To run containers in detached mode:
 
-'docker-compose up -d'
+`docker-compose up -d`
 
 -To stop containers:
 
-'docker-compose stop'
+`docker-compose stop`
 
 -To stop and remove containers:
 
-'docker-compose down'
+`docker-compose down`
 
 ## How to access the application via browser
 Open browser and enter the site via this link http://localhost:8080
