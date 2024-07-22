@@ -24,7 +24,7 @@ services:
       - ENV MYSQL_PASSWORD=1234
 
   todoapp:
-    image: todoapp:2.0.0
+    image: fredfredburger/todoapp:2.0.0
 
     container_name: todoapp-local
 
