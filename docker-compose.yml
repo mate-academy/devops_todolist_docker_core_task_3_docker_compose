@@ -7,7 +7,7 @@ volumes:
     driver: local
 services:
   mysql-local:
-    image: mysql-local:1.0.0
+    image: fredfredburger/mysql-local:1.0.0
     container_name: mysql-local
     networks:
       - todo-db-network
