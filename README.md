@@ -38,10 +38,20 @@ or start on the [landing page](http://localhost:8000/)
 6. Todos should be stored in MySQL Database, with a persistent volume connected
 7. Create PR with your changes and attach it for validation on a platform
 
+### Run with Docker compose
 
+To run the application with Docker compose, you need to have Docker installed on your machine.
 
+Use the following command to start the application:
 
+```bash
+docker-compose up
+```
 
+### Stop Docker compose
 
+To stop the application, use the following command:
 
-
+```bash
+docker-compose down
+```
