@@ -7,7 +7,7 @@ networks:
 services:
 
   todoapp:
-    image: abnormaltype/todoapp:2.0.0
+    image: abnormaltype/todoapp:latest
     build:
       context: .
       dockerfile: Dockerfile
@@ -18,17 +18,17 @@ services:
     environment:
       - PYTHONUNBUFFERED=1
     depends_on:
-      - mysql
+      - mysql-local
     restart: unless-stopped
 
-  mysql:
-    image: abnormaltype/mysql-local:1.0.0
+  mysql-local:
+    image: abnormaltype/mysql-local:latest
     build:
       context: .
       dockerfile: Dockerfile.mysql
     ports:
       - "3306:3306"
-    container_name: mysql
+    container_name: mysql-local
     volumes:
       - app-data:/var/lib/mysql
     environment:
