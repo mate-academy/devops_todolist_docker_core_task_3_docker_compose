@@ -7,7 +7,7 @@ networks:
 services:
 
   todoapp:
-    image: abnormaltype/todoapp:latest
+    image: abnormaltype/devops-todoapp:latest
     build:
       context: .
       dockerfile: Dockerfile
