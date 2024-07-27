@@ -7,7 +7,7 @@ networks:
 services:
 
   todoapp:
-    image: todoapp:2.0.0
+    image: abnormaltype/todoapp:2.0.0
     build:
       context: .
       dockerfile: Dockerfile
@@ -22,7 +22,7 @@ services:
     restart: unless-stopped
 
   mysql:
-    image: mysql-local:1.0.0
+    image: abnormaltype/mysql-local:1.0.0
     build:
       context: .
       dockerfile: Dockerfile.mysql
