@@ -5,6 +5,19 @@ networks:
     driver: bridge
 
 services:
+  mysql:
+    image: mysql-local
+    build:
+      context: .
+      dockerfile: Dockerfile.mysql
+    container_name: mysql
+    ports:
+      - "3307:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - db-data-net
+
   pythonapp:
     image: todoapp
     build:
@@ -19,18 +32,5 @@ services:
       - mysql
     restart: unless-stopped
 
-
-  mysql:
-    image: mysql-local
-    build:
-      context: .
-      dockerfile: Dockerfile.mysql
-    container_name: mysql
-    ports:
-      - "3307:3306"
-    volumes:
-      - db-data:/var/lib/mysql
-    networks:
-      - db-data-net
 volumes:
   db-data:
