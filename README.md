@@ -19,9 +19,16 @@ And then start the server (default: http://localhost:8000)
 
     python manage.py runserver
 
+# Build and run docker containers with database and app:
+
+docker-compose up -d
 
 Now you can browse the [API](http://localhost:8000/api/)
 or start on the [landing page](http://localhost:8000/)
+
+# Use the following command to stop containers:
+
+docker-compose down
 
 ## Task
 #### Prerequisites
