@@ -36,3 +36,4 @@ services:
       - db-data-net
 volumes:
   db-data:
+  
