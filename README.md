@@ -1,47 +1,49 @@
-# Django-Todolist
+# Django ToDo list
 
-Django-Todolist is a todolist web application with the most basic features of most web apps, i.e. accounts/login, API and (somewhat) interactive UI.
+This Django-based ToDo List web application offers essential features commonly found in modern web apps, including user authentication (accounts/login), a RESTful API, and an interactive user interface.
 
----
-CSS | [Skeleton](http://getskeleton.com/)
-JS  | [jQuery](https://jquery.com/)
+![ToDo logo](https://i.ibb.co/YDdCcZR/2.png)
 
-## Explore
-Try it out by installing the requirements. (Works only with python >= 3.8, due to Django 4)
+## Setup
+### 1) With Dockerfiles
 
-    pip install -r requirements.txt
+1. Link to Docker image with app (2.0.0 tag)
 
-Create a database schema:
+    **[Docker Hub: dastex/todo-app](https://hub.docker.com/r/dastex/todo-app)**
 
-    python manage.py migrate
+2. Link to MySQL image with a volume attached locally
 
-And then start the server (default: http://localhost:8000)
+    **[Docker Hub: dastex/mysql-local](https://hub.docker.com/r/dastex/mysql-local)**
 
-    python manage.py runserver
+3. Pull the MySQL image with a volume attached locally:
+```bash
+docker pull dastex/mysql-local
+```
+4. You need pull App image locally
+```bash
+docker pull dastex/todo-app:2.0.0
+```
+5. You need run a MySQL container
+```bash
+docker run -d -p 3306:3306 -v my-mysql-data:/var/lib/mysql dastex/mysql-local
+```
+6. You need run App container
+```bash
+docker run -d -p 8080:8080 dastex/todo-app:2.0.0
+```
+7. Open application in browser
 
+    [http://localhost:8080/](http://localhost:8080/)
 
-Now you can browse the [API](http://localhost:8000/api/)
-or start on the [landing page](http://localhost:8000/)
+### 2) With docker-compose
+1. Start app
+```bash
+docker-compose up -d
+```
+This instruction will create the necessary containers according to the docker-compose.yml instruction and run them in a mode without viewing logs (-d)
 
-## Task
-#### Prerequisites
-- Fork this repository
-
-#### Requirements
-
-1. Prepare a `docker-compose.yml` file that will build and start both MySQL db and Todolist app
-2. Remove RUN python manage.py migrate as the database is no longer available at the build time
-3. Refactor ENTRYPOINT to execute both db migration and application start. Example:
-`ENTRYPOINT ["sh", "-c", “command1 && command2”]`
-4. The application should work with no issues after running docker-compose up
-5. Update the README.md file by adding a new section with instructions on how to run and stop containers with docker-compose
-6. Todos should be stored in MySQL Database, with a persistent volume connected
-7. Create PR with your changes and attach it for validation on a platform
-
-
-
-
-
-
-
-
+2. Stop app
+```bash
+docker-compose down
+```
+This instruction will stop and delete the created containers
