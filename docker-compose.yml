@@ -1,0 +1,32 @@
+version: "3.9"
+networks:
+  db-data-net:
+    driver: bridge
+services:
+  pythonapp:
+    image: app:1.0
+    container_name: todo-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    networks:
+      - db-data-net
+    depends_on:
+      - mysql
+    restart: unless-stopped
+  mysql:
+    image: mysql:1.0
+    container_name: my-sql
+    build:
+      context: .
+      dockerfile: Dockerfile.mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - db-data-net
+volumes:
+  db-data:
