@@ -41,3 +41,4 @@ volumes:
   mysql_data:
 networks:
   app-network:
+  
