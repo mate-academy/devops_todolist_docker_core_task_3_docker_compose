@@ -38,9 +38,20 @@ or start on the [landing page](http://localhost:8000/)
 6. Todos should be stored in MySQL Database, with a persistent volume connected
 7. Create PR with your changes and attach it for validation on a platform
 
+## How to Run the Application with Docker Compose
+### 1. Build and start services:
+```docker
+docker-compose up -d
+```
+### 2. Stop services:
+```docker
+docker-compose down
+```
+### 3. Access the application:
 
-
-
+* Once the services are up, open your browser and go to [http://localhost:8080](http://localhost:8080) to view the application.
+### 4. Persistent data:
+The todos are stored in the MySQL database, and the data is persisted using a Docker volume.
 
 
 
