@@ -19,7 +19,7 @@ Once the container is running, open a web browser and go to:
 http://localhost:8080
 
 ## Stoping Containers
-o stop the running container, find the container ID using:
+If you want to stop all containers and delete them, run following command in terminal:
 
 docker-compose down
 
