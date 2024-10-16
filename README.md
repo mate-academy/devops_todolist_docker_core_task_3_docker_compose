@@ -1,47 +1,29 @@
 # Django-Todolist
+This is a simple Django-based To-Do List application built with Docker.
 
-Django-Todolist is a todolist web application with the most basic features of most web apps, i.e. accounts/login, API and (somewhat) interactive UI.
+## GitHub
 
----
-CSS | [Skeleton](http://getskeleton.com/)
-JS  | [jQuery](https://jquery.com/)
+### Clone the Repository
+If you're working with the source code, clone the project repository:
 
-## Explore
-Try it out by installing the requirements. (Works only with python >= 3.8, due to Django 4)
+git clone https://github.com/L1mbxbx/devops_todolist_docker_core_task_3_docker_compose/tree/develop cd devops_todolist
 
-    pip install -r requirements.txt
+## Building your application
+To build your application, run this command in terminal:
 
-Create a database schema:
+docker-compose up -d
 
-    python manage.py migrate
+## Access the Application in a Browser
+Once the container is running, open a web browser and go to:
 
-And then start the server (default: http://localhost:8000)
+http://localhost:8080
 
-    python manage.py runserver
+## Stoping Containers
+If you want to stop all containers and delete them, run following command in terminal:
 
+docker-compose down
 
-Now you can browse the [API](http://localhost:8000/api/)
-or start on the [landing page](http://localhost:8000/)
+## Deleting Images and containers
+To delete all your images and containers run following command in terminal:
 
-## Task
-#### Prerequisites
-- Fork this repository
-
-#### Requirements
-
-1. Prepare a `docker-compose.yml` file that will build and start both MySQL db and Todolist app
-2. Remove RUN python manage.py migrate as the database is no longer available at the build time
-3. Refactor ENTRYPOINT to execute both db migration and application start. Example:
-`ENTRYPOINT ["sh", "-c", “command1 && command2”]`
-4. The application should work with no issues after running docker-compose up
-5. Update the README.md file by adding a new section with instructions on how to run and stop containers with docker-compose
-6. Todos should be stored in MySQL Database, with a persistent volume connected
-7. Create PR with your changes and attach it for validation on a platform
-
-
-
-
-
-
-
-
+docker system prune -a
