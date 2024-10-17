@@ -1,47 +1,43 @@
-# Django-Todolist
+MySQL image: https://hub.docker.com/repository/docker/levandrii1/mysql-local/general
+Todoapp image: https://hub.docker.com/repository/docker/levandrii1/todoapp/general
 
-Django-Todolist is a todolist web application with the most basic features of most web apps, i.e. accounts/login, API and (somewhat) interactive UI.
+## Instructions:
 
----
-CSS | [Skeleton](http://getskeleton.com/)
-JS  | [jQuery](https://jquery.com/)
+### Running containers manually:
 
-## Explore
-Try it out by installing the requirements. (Works only with python >= 3.8, due to Django 4)
+1. Pull both images:
+```bash
+docker pull levandrii1/mysql-local:1.0.0
+docker pull levandrii1/todoapp:2.0.0
+```
 
-    pip install -r requirements.txt
+2. Run MySQL container: 
+```bash
+docker run --name mysql_container -v mysql_data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root_password -d mysql-local:1.0.0
+```
 
-Create a database schema:
+3. Open settings.py, edit the HOST setting in the DATABASES section on line #70 with your mysql_container IP address.
 
-    python manage.py migrate
+4. Build and run the app container:
+```bash
+docker run --name todoapp_container -p 8080:8080 todoapp:2.0.0
+```
 
-And then start the server (default: http://localhost:8000)
-
-    python manage.py runserver
-
-
-Now you can browse the [API](http://localhost:8000/api/)
-or start on the [landing page](http://localhost:8000/)
-
-## Task
-#### Prerequisites
-- Fork this repository
-
-#### Requirements
-
-1. Prepare a `docker-compose.yml` file that will build and start both MySQL db and Todolist app
-2. Remove RUN python manage.py migrate as the database is no longer available at the build time
-3. Refactor ENTRYPOINT to execute both db migration and application start. Example:
-`ENTRYPOINT ["sh", "-c", “command1 && command2”]`
-4. The application should work with no issues after running docker-compose up
-5. Update the README.md file by adding a new section with instructions on how to run and stop containers with docker-compose
-6. Todos should be stored in MySQL Database, with a persistent volume connected
-7. Create PR with your changes and attach it for validation on a platform
+5. Access the app. Open the web browser and go to: http://localhost:8080/
 
 
+### Running with docker-compose
+Using Docker Compose allows you to run both containers simultaneously.
 
+1. Start the containers:
+```bash
+docker-compose up
+```
 
+2. Access the app. Open the web browser and go to: http://localhost:8080/
 
-
-
-
+3. To stop and remove the containers:
+```bash
+docker-compose down
+```
+This command stops the containers and removes them. The data will still be saved in your local MySQL database.
