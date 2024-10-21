@@ -40,9 +40,14 @@ or start on the [landing page](http://localhost:8000/)
 
 
 ### Commands how to use docker-compose
-- To run containers - docker-compose up -d
-
-- To stop containers - docker-compose stop
+To run containers:
+```
+docker-compose up -d
+```
+To stop containers:
+```
+docker-compose stop
+```
 
 
 
