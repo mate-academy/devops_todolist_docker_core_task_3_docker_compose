@@ -42,6 +42,11 @@ or start on the [landing page](http://localhost:8000/)
 
 
 
+# Running containers
+command line: docker-compose up -d
 
+# Go to page
+http://127.0.0.1:8080
 
-
+# Stopping containers
+command line: docker-compose down
