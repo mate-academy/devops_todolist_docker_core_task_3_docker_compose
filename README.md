@@ -1,47 +1,44 @@
 # Django-Todolist
 
-Django-Todolist is a todolist web application with the most basic features of most web apps, i.e. accounts/login, API and (somewhat) interactive UI.
+A simple to-do list web application built with Django, MySQL, and Docker.
 
----
-CSS | [Skeleton](http://getskeleton.com/)
-JS  | [jQuery](https://jquery.com/)
+## Docker Setup Instructions
 
-## Explore
-Try it out by installing the requirements. (Works only with python >= 3.8, due to Django 4)
+### 1. Running the MySQL Container
+To run the MySQL container with a volume attached, use:
+```bash
+docker run -d --name mysql-container \
+  -e MYSQL_ROOT_PASSWORD=rootpassword \
+  -v mysql_data:/var/lib/mysql \
+  -p 3306:3306 \
+  vpcomtek/mysql-local:1.0.0
+```
+### 2. Running the Django Application Container
+Run the Django app container:
+```bash
+docker run -d --name django-app -p 8080:8080 --link mysql-container:mysql-container \
+  vpcomtek/todoapp:2.0.0
 
-    pip install -r requirements.txt
+```
+### 3. Accessing the Application
+After starting both containers, open your browser and navigate to:
 
-Create a database schema:
-
-    python manage.py migrate
-
-And then start the server (default: http://localhost:8000)
-
-    python manage.py runserver
-
-
-Now you can browse the [API](http://localhost:8000/api/)
-or start on the [landing page](http://localhost:8000/)
-
-## Task
-#### Prerequisites
-- Fork this repository
-
-#### Requirements
-
-1. Prepare a `docker-compose.yml` file that will build and start both MySQL db and Todolist app
-2. Remove RUN python manage.py migrate as the database is no longer available at the build time
-3. Refactor ENTRYPOINT to execute both db migration and application start. Example:
-`ENTRYPOINT ["sh", "-c", “command1 && command2”]`
-4. The application should work with no issues after running docker-compose up
-5. Update the README.md file by adding a new section with instructions on how to run and stop containers with docker-compose
-6. Todos should be stored in MySQL Database, with a persistent volume connected
-7. Create PR with your changes and attach it for validation on a platform
+> [http://0.0.0.0:8080](http://localhost:8080)
 
 
+### 4. Docker Hub Links
+* [MySQL Image](https://hub.docker.com/r/vpcomtek/mysql-local)
+* [Django Application Image](https://hub.docker.com/r/vpcomtek/todoapp)
 
+## Docker Compose Setup Instructions
+### 1. Run
+```bash
+docker-compose up -d
+```
+### 2. Stop containers
+```bash
+docker-compose down
+```
 
-
-
-
-
+### Sreenshot
+> ![ToDoapp-docker-compose.png](ToDoapp-docker-compose.png)
