@@ -40,6 +40,17 @@ or start on the [landing page](http://localhost:8000/)
 
 
 ## How to run
+## How to run
+
+    docker-compose up -d 
+
+## How to stop
+
+    docker-compose down
+
+
+
+
 
     docker-compose up -d 
 
