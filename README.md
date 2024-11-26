@@ -23,6 +23,26 @@ And then start the server (default: http://localhost:8000)
 Now you can browse the [API](http://localhost:8000/api/)
 or start on the [landing page](http://localhost:8000/)
 
+## Docker Compose
+
+Create and start the containers:
+
+```bash
+docker-compose up -d
+```
+
+To stop the container, run the following command:
+
+```bash
+docker-compose stop
+```
+
+To remove them, use:
+
+```bash
+docker-compose down
+```
+
 ## Task
 #### Prerequisites
 - Fork this repository
