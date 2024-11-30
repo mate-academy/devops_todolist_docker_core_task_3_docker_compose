@@ -1,0 +1,36 @@
+version: '3'
+
+networks:
+  db-data-net:
+    driver: bridge
+
+services:
+  mysql:
+    image: mysql-local
+    build:
+      context: .
+      dockerfile: Dockerfile.mysql
+    container_name: mysql
+    ports:
+      - "3307:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - db-data-net
+
+  pythonapp:
+    image: todoapp
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pythonapp
+    ports:
+      - "8081:8080"
+    networks:
+      db-data-net:
+    depends_on:
+      - mysql
+    restart: unless-stopped
+
+volumes:
+  db-data:
