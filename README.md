@@ -6,6 +6,10 @@ Django-Todolist is a todolist web application with the most basic features of mo
 CSS | [Skeleton](http://getskeleton.com/)
 JS  | [jQuery](https://jquery.com/)
 
+### Screenshot of a terminal with successfully started application
+
+![img](https://s3.amazonaws.com/i.snag.gy/trwW4M.jpg)
+
 ## Explore
 Try it out by installing the requirements. (Works only with python >= 3.8, due to Django 4)
 
@@ -22,6 +26,18 @@ And then start the server (default: http://localhost:8000)
 
 Now you can browse the [API](http://localhost:8000/api/)
 or start on the [landing page](http://localhost:8000/)
+
+## Using Docker
+
+To run the application:
+```
+docker-compose up -d 
+```
+
+To stop the application:
+```
+docker-compose down
+```
 
 ## Task
 #### Prerequisites
