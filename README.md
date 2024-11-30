@@ -23,6 +23,17 @@ And then start the server (default: http://localhost:8000)
 Now you can browse the [API](http://localhost:8000/api/)
 or start on the [landing page](http://localhost:8000/)
 
+## How to work with docker containers
+
+#### How to start docker containers
+To start docker containers execute the next command:
+    - docker-compose up -d
+'-d' from '--detach'
+
+#### How to stop docker containers
+To stop docker containers execute the next command:
+    - docker-compose down
+
 ## Task
 #### Prerequisites
 - Fork this repository
