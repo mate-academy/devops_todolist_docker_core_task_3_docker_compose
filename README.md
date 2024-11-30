@@ -1,3 +1,17 @@
+# Instructions
+
+Run containers using command:
+```
+docker-compose up -d
+```
+
+Shutdown containers using command:
+```
+docker-compose down -d
+```
+
+Access application using [link](http://localhost:8082)
+
 # Django-Todolist
 
 Django-Todolist is a todolist web application with the most basic features of most web apps, i.e. accounts/login, API and (somewhat) interactive UI.
