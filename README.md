@@ -1,3 +1,18 @@
+### Instruction how to use docker-compose
+- To run containers
+'''
+docker-compose up -d
+'''
+- To stop containers
+'''
+docker-compose stop
+'''
+- To remove containers
+'''
+docker-compose down
+'''
+
+
 # Django-Todolist
 
 Django-Todolist is a todolist web application with the most basic features of most web apps, i.e. accounts/login, API and (somewhat) interactive UI.
