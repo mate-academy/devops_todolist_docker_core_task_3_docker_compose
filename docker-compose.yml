@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  db:
+    hostname: db
+    image: shcherbanvasyl499/todolist-db
+    build:
+      context: .
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: app_db
+      MYSQL_USER: app_user
+      MYSQL_PASSWORD: 1234
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3308:3306"
+
+  web:
+    image: shcherbanvasyl499/todolist-web
+    build:
+      context: .
+    volumes:
+      - .:/app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_HOST=db
+      - DATABASE_NAME=app_db
+      - DATABASE_USER=app_user
+      - DATABASE_PASSWORD=1234
+
+volumes:
+  db_data:
