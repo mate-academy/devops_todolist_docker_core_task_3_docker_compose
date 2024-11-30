@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  todoapp:
+    image: todoapp:2.0.0
+    container_name: todoapp
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - PYTHON_VERSION=3.8
+    ports:
+      - "8080:8080"
+    environment:
+      - APP_ENV=Development
+      - PYTHONUNBUFFERED=1
+    networks:
+      - db-network
+    depends_on:
+      - mysql-local
+    restart: always
+    entrypoint: python manage.py runserver 0.0.0.0:8080 && python manage.py migrate
+
+  mysql-local:
+    container_name: mysql-local
+    image: mysql-local:1.0.0
+    build:
+      context: .
+      dockerfile: Dockerfile.mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - db-network
+    volumes:
+      - db-volume:/var/lib/mysql
+
+networks:
+  db-network:
+    driver: bridge
+
+volumes:
+  db-volume:
