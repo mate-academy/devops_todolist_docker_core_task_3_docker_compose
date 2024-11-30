@@ -44,4 +44,27 @@ or start on the [landing page](http://localhost:8000/)
 
 
 
+## Docker Setup
 
+### Prerequisites
+- Docker
+- Docker Compose
+
+### Running the Application
+
+To build and start the application using Docker Compose, follow these steps:
+
+1. **Build the Docker images:**
+   ```sh
+   docker-compose build
+
+2. **Start the services:**
+   ```sh
+   docker-compose up
+3. **Access the application:**
+Open your web browser and navigate to http://localhost:8080.
+
+4. **Stopping the Application**
+To stop the running containers, use the following command:
+   ```sh
+    docker-compose down
