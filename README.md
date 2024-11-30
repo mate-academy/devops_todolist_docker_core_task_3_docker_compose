@@ -1,3 +1,28 @@
+# INSTRUCTIONS
+
+# To run TodoList app execute next command:
+```
+docker-compose up -d
+```
+
+# To check running containers:
+```
+docker-compose ps  
+```
+
+# To check logs:
+```
+docker-compose logs  
+```
+
+[Open in browser](http://localhost:8081/)
+
+# Stop and remove containers:
+
+```
+docker-compose down  
+```
+
 # Django-Todolist
 
 Django-Todolist is a todolist web application with the most basic features of most web apps, i.e. accounts/login, API and (somewhat) interactive UI.
@@ -37,11 +62,3 @@ or start on the [landing page](http://localhost:8000/)
 5. Create the `INSTRUCTION.md` file with detailed instructions on how to run and stop containers with docker-compose
 6. Todos should be stored in MySQL Database, with a persistent volume connected
 7. Create PR with your changes and attach it for validation on a platform
-
-
-
-
-
-
-
-
