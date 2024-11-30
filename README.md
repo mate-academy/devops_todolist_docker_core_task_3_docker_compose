@@ -40,6 +40,30 @@ or start on the [landing page](http://localhost:8000/)
 
 
 
+## Docker Compose run up
+
+To start the application and the MySQL database using Docker Compose, run the following command:
+
+```bash
+docker-compose up --build
+```
+
+To stop containers, run the following command:
+
+```bash
+docker-compose stop
+```
+
+To stop and remove containers, run the following command:
+
+```bash
+docker-compose down
+```
+        
+
+
+
+
 
 
 
