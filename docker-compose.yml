@@ -1,0 +1,39 @@
+version: '3'
+networks:
+  todo-db-network:
+    driver: bridge
+volumes:
+  todo-db-volume:
+    driver: local
+services:
+  mysql-local:
+    image: fredfredburger/mysql-local:1.0.0
+    container_name: mysql-local
+    networks:
+      - todo-db-network
+    ports:
+      - 3306:3306
+    volumes:
+      - todo-db-volume:/var/lib/mysql
+    build: 
+      context: Dockerfile.mysql
+    environment:
+      - ENV MYSQL_ROOT_PASSWORD=1234
+      - ENV MYSQL_DATABASE=app_db
+      - ENV MYSQL_USER=app_user
+      - ENV MYSQL_PASSWORD=1234
+
+  todoapp:
+    image: fredfredburger/todoapp:2.0.0
+
+    container_name: todoapp-local
+
+    networks:
+      - todo-db-network
+    ports:
+      - 8080:8080
+    depends_on:
+      - mysql-local
+    
+    restart: 
+      unless-stopped
