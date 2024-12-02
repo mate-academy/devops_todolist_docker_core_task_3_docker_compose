@@ -12,4 +12,5 @@
 8. Enter in MySQL:
                   docker exec -it mysql_container mysql -u app_user -p1234
 9. Check information about database, tables or more.
-                     
+
+                  
