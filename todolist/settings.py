@@ -8,25 +8,22 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
-import os
-from dotenv import load_dotenv
-
-# Load environment variables
-load_dotenv()
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import os
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY', 'default_secret_key')
+SECRET_KEY = os.getenv("SECRET_KEY", "default_secret_key")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', 'True') == 'True'
+DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
+ALLOWED_HOSTS = []
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
@@ -60,16 +57,17 @@ ROOT_URLCONF = "todolist.urls"
 
 WSGI_APPLICATION = "todolist.wsgi.application"
 
+
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 DATABASES = {
     'default': {
-        'ENGINE': 'mysql.connector.django',
-        'NAME': os.getenv('DATABASE_NAME', 'app_db'),
-        'USER': os.getenv('DATABASE_USER', 'app_user'),
-        'PASSWORD': os.getenv('DATABASE_PASSWORD', '1234'),
-        'HOST': os.getenv('DATABASE_HOST', 'mysql'),
-        'PORT': os.getenv('DATABASE_PORT', '3306'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.getenv("MYSQL_DATABASE"),
+        'USER': os.getenv("MYSQL_USER"),
+        'PASSWORD': os.getenv("MYSQL_PASSWORD"),
+        'HOST': 'mysql',
+        'PORT': '3306',
     }
 }
 
@@ -86,10 +84,12 @@ USE_L10N = True
 
 USE_TZ = True
 
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = "/static/"
+
 
 # Login settings
 
@@ -97,7 +97,8 @@ LOGIN_URL = "/auth/login/"
 
 LOGOUT_URL = "/auth/logout/"
 
-# REST (API) framework
+
+# rest (api) framework
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
@@ -114,7 +115,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "django.template.context_processors.request",
             ],
-            "debug": DEBUG,
+            "debug": True,
         },
     },
 ]
