@@ -67,7 +67,7 @@ DATABASES = {
         'USER': 'app_user',
         'PASSWORD': '1234',
         'HOST': 'db',
-        'PORT': 'todo-app-container',
+        'PORT': '3306',
     }
 }
 

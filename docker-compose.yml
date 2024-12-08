@@ -24,7 +24,6 @@ services:
       - db-data-net
 
   todo-app:
-    image: todoapp:2.0.0
     build: ./
     container_name: todo-app-container
     restart: unless-stopped
