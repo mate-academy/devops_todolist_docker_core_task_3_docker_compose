@@ -1,0 +1,43 @@
+networks:
+  DB_net:
+    name: net1
+    driver: bridge
+services:
+  pythonapp:
+    command: /bin/bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8080"
+    container_name: todoapp-2.0.0
+    image: my-django-app:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PYTHON_VERSION: 3.8
+    ports:
+      - "8080:8080"
+    networks:
+      - DB_net
+    depends_on:
+      - mysql
+    restart: unless-stopped
+    environment:
+     - PYTHONUNBUFFERED=1
+  mysql:
+    image: my-sql:latest
+    volumes:
+      - app-data:/var/lib/mysql
+    build:
+      context: .
+      dockerfile: Dockerfile.mysql
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    environment:
+     - MYSQL_ROOT_PASSWORD=1234
+     - MYSQL_DATABASE=app_db
+     - MYSQL_USER=app_user
+     - MYSQL_PASSWORD=1234
+    networks:
+      - DB_net
+volumes:
+  app-data:
+    name: app_data
