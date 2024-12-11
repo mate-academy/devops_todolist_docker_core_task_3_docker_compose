@@ -4,7 +4,11 @@ networks:
     driver: bridge
 services:
   pythonapp:
-    command: /bin/bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8080"
+    command:
+        /bin/bash -c "pip install --upgrade pip &&
+        pip install -r requirements.txt &&
+        python manage.py migrate &&
+        python manage.py runserver 0.0.0.0:8080"
     container_name: todoapp-2.0.0
     image: my-django-app:latest
     build:
@@ -32,10 +36,10 @@ services:
     ports:
       - "3306:3306"
     environment:
-     - MYSQL_ROOT_PASSWORD=1234
+     - MYSQL_ROOT_PASSWORD=0yja-i!dpebxsz^
      - MYSQL_DATABASE=app_db
      - MYSQL_USER=app_user
-     - MYSQL_PASSWORD=1234
+     - MYSQL_PASSWORD=1q2q3q4
     networks:
       - DB_net
 volumes:
