@@ -2,7 +2,6 @@
 ARG PYTHON_VERSION=3.8
 FROM python:${PYTHON_VERSION} as builder
 
-# Set the working directory
 WORKDIR /app
 COPY . .
 
@@ -13,14 +12,22 @@ WORKDIR /app
 
 ENV PYTHONUNBUFFERED=1
 
+# Install system dependencies for mysqlclient and netcat
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    default-libmysqlclient-dev \
+    pkg-config \
+    netcat-openbsd && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
 COPY --from=builder /app .
 
 RUN pip install --upgrade pip && \
     pip install -r requirements.txt
 
-RUN python manage.py migrate
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
-EXPOSE 8080
+EXPOSE 8000
 
-# Run database migrations and start the Django application
-ENTRYPOINT ["python", "manage.py", "runserver", "0.0.0.0:8080"]
+ENTRYPOINT ["/entrypoint.sh"]
