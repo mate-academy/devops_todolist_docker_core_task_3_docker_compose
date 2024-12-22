@@ -16,7 +16,7 @@ services:
       - mysql
     restart: unless-stopped
   mysql:
-    image: my-sql:1.2
+    image: mysql:latest
     build:
       context: .
       dockerfile: Dockerfile.mysql
