@@ -1,0 +1,48 @@
+version: '3'
+
+
+networks:
+    my_app_net:
+        driver: bridge
+
+
+services:
+  mysql_service:
+    image: mysql_image:1.0
+    build:
+        context: .
+        dockerfile: Dockerfile.mysql
+    container_name: mysql_container
+    ports:
+      - "3306:3306"
+    volumes:
+      - my_app_data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=app_db
+      - MYSQL_USER=app_user
+      - MYSQL_PASSWORD=1234
+    networks:
+        - my_app_net
+
+  pythonapp_service:
+    image: pythonapp_image:1.0
+    build:
+        context: .
+        dockerfile: Dockerfile
+    container_name: pythonapp_container
+    ports:
+      - "8080:8080"
+    environment:
+      - PYTHONUNBUFFERED=1
+    networks:
+        - my_app_net
+    depends_on:
+      - mysql_service
+    restart:
+      unless-stopped
+
+
+volumes:
+  my_app_data:
+    driver: local

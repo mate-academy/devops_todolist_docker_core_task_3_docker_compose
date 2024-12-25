@@ -7,6 +7,7 @@ ENV MYSQL_DATABASE=app_db
 ENV MYSQL_USER=app_user
 ENV MYSQL_PASSWORD=1234
 
+
 # Expose port 3306 for MySQL connections
 EXPOSE 3306
 
