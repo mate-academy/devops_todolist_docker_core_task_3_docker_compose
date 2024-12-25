@@ -1,0 +1,31 @@
+networks:
+  db-data-net:
+    driver: bridge
+services:
+  pythonapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      - ENV=local
+    networks:
+      - db-data-net
+    depends_on:
+      - mysql
+    restart: unless-stopped
+  mysql:
+    image: mysql:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.mysql
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - db-data-net
+volumes:
+  db-data:
