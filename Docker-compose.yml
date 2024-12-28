@@ -3,7 +3,7 @@ services:
   db:
     image: mysql:5.7
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: todolist
     volumes:
       - mysql_data:/var/lib/mysql
@@ -15,13 +15,13 @@ services:
     depends_on:
       - db
     environment:
-      - DATABASE_URL=mysql://root:rootpassword@db/todolist
+      - DATABASE_URL=${DATABASE_URL}
     ports:
       - "8080:8080"
     networks:
       - todolist_network
     volumes:
-      - .:/app
+      - ./app:/app
 
 volumes:
   mysql_data:
