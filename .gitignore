@@ -1,0 +1,38 @@
+.env
+
+# Контейнери та їхні метадані
+docker-compose.override.yml
+docker-compose.override.yaml
+.dockerignore
+docker-sync.yml
+docker-sync.yaml
+
+# Дані контейнерів
+db-data/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtualenv
+venv/
+env/
+
+# Пакети та кеш
+*.egg-info/
+dist/
+build/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Django / Python logs
+*.log
+*.sqlite3
+debug.log
+
+# VS Code / JetBrains / OS кеш-файли
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
