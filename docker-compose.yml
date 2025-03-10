@@ -3,6 +3,18 @@ networks:
   db-data-net:
     driver: bridge
 services:
+  pythonapp:
+    image: todoapp:1.0.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - db-data-net
+    depends_on:
+      - mysql
+    restart: unless-stopped
   mysql:
     image:
       my-sql:1.0.0
@@ -21,17 +33,5 @@ services:
       - MYSQL_PASSWORD=1234
     networks:
       - db-data-net
-  pythonapp:
-    image: todoapp:1.0.0
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
-    networks:
-      - db-data-net
-    depends_on:
-      - mysql
-    restart: unless-stopped
 volumes:
     db-data:

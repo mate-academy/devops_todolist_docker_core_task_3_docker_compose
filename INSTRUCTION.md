@@ -2,7 +2,7 @@
 
 ## Clone the repository
 ````bash
-git clone https://github.com/betterthink/https://github.com/betterthink/devops_todolist_docker_core_task_3_docker_compose
+git clone https://github.com/betterthink/devops_todolist_docker_core_task_3_docker_compos
 ````
 ## Building docker compose file
 ### 1. Create file 
