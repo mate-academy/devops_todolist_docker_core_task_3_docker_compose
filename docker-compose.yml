@@ -1,0 +1,39 @@
+version: '3.8'
+
+networks:
+  db-data-net:
+    driver: bridge
+
+services:
+
+  pythonapp:
+    image: app:1.2
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    environment:
+      - APP_ENV=Development
+    networks:
+      - db-data-net
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  db:
+    image: mysql:8.0
+    container_name: my-sql
+    environment:
+      MYSQL_ROOT_PASSWORD: Strong_Root_Password123
+      MYSQL_DATABASE: app_db
+      MYSQL_USER: app_user
+      MYSQL_PASSWORD: Secure_User_Password456
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    networks:
+      - db-data-net
+
+volumes:
+  mysql-data:
