@@ -14,13 +14,19 @@ WORKDIR /app
 ENV PYTHONUNBUFFERED=1
 
 COPY --from=builder /app .
+COPY entrypoint.sh /app/entrypoint.sh
 
-RUN pip install --upgrade pip && \
-    pip install -r requirements.txt
 
-RUN python manage.py migrate
+RUN chmod +x /app/entrypoint.sh
+
+RUN apt-get update && apt-get install -y \
+    default-libmysqlclient-dev \
+    gcc \
+    && pip install --no-cache-dir -r requirements.txt
+
 
 EXPOSE 8080
 
 # Run database migrations and start the Django application
-ENTRYPOINT ["python", "manage.py", "runserver", "0.0.0.0:8080"]
+ENTRYPOINT ["/app/entrypoint.sh"]
+
