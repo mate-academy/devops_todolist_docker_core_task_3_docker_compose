@@ -1,47 +1,24 @@
-# Django-Todolist
+# Docker Compose Setup for Django Todolist App with MySQL
 
-Django-Todolist is a todolist web application with the most basic features of most web apps, i.e. accounts/login, API and (somewhat) interactive UI.
+# Project Overview:
 
----
-CSS | [Skeleton](http://getskeleton.com/)
-JS  | [jQuery](https://jquery.com/)
+In this task, I configured a docker-compose setup for a Django-based todo-list application using a MySQL database. The solution ensures data persistence through named volumes and executes all necessary setup commands at container startup.
 
-## Explore
-Try it out by installing the requirements. (Works only with python >= 3.8, due to Django 4)
+# Tech stack:
 
-    pip install -r requirements.txt
+- Docker & Docker Compose
+- MySQL
+- Python / Django
+- Shell (entrypoint)
 
-Create a database schema:
+# What was done:
 
-    python manage.py migrate
-
-And then start the server (default: http://localhost:8000)
-
-    python manage.py runserver
-
-
-Now you can browse the [API](http://localhost:8000/api/)
-or start on the [landing page](http://localhost:8000/)
-
-## Task
-#### Prerequisites
-- Fork this repository
-
-#### Requirements
-
-1. Prepare a `docker-compose.yml` file that will build and start both MySQL db and Todolist app
-2. Remove RUN python manage.py migrate as the database is no longer available at the build time
-3. Refactor ENTRYPOINT to execute both db migration and application start. Example:
-`ENTRYPOINT ["sh", "-c", “command1 && command2”]`
-4. The application should work with no issues after running docker-compose up
-5. Create the `INSTRUCTION.md` file with detailed instructions on how to run and stop containers with docker-compose
-6. Todos should be stored in MySQL Database, with a persistent volume connected
-7. Create PR with your changes and attach it for validation on a platform
-
-
-
-
-
-
-
+- Created a docker-compose.yml file to define and run two services: mysql and pythonapp.
+- Used a custom Dockerfile.mysql to build the MySQL image and expose port 3306.
+- Attached a named volume (db-data) to persist MySQL data at /var/lib/mysql.
+- Removed RUN python manage.py migrate from the Django Dockerfile to avoid running migrations during build time.
+- Refactored the ENTRYPOINT of the Django container to run migrations after the database becomes available.
+- Ensured that the Django container waits for MySQL using depends_on with healthcheck.
+- Created an INSTRUCTION.md file with step-by-step commands to run and stop the setup using Docker Compose.
+- Todos are stored in MySQL and persist between restarts thanks to the named volume.
 
