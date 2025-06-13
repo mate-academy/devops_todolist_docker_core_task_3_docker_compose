@@ -7,3 +7,7 @@ docker-compose up --build -d
 docker restart django_app
 ```
 3) Access the server via localhost:8080
+4) Stop the docker-compose by the command below:
+```shell
+docker-compose down
+```
