@@ -1,5 +1,5 @@
 # Stage 1: Build Stage
-ARG PYTHON_VERSION=3.8
+ARG PYTHON_VERSION=3.9
 FROM python:${PYTHON_VERSION} as builder
 
 # Set the working directory
@@ -18,9 +18,7 @@ COPY --from=builder /app .
 RUN pip install --upgrade pip && \
     pip install -r requirements.txt
 
-RUN python manage.py migrate
-
-EXPOSE 8080
+EXPOSE 8000
 
 # Run database migrations and start the Django application
-ENTRYPOINT ["python", "manage.py", "runserver", "0.0.0.0:8080"]
+ENTRYPOINT python manage.py migrate && python manage.py runserver 0.0.0.0:8000
