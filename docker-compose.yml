@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  # Сервіс для веб-додатку Django
+  app:
+    # Збиратиме образ з Dockerfile в поточній директорії
+    build: .
+    # Назва контейнера для зручності
+    container_name: todolist_app
+    # Прокидаємо порт 8000 з контейнера на порт 8000 вашого комп'ютера
+    ports:
+      - "8000:8080"
+    # Підключаємо томи (volumes)
+    volumes:
+      # Синхронізує код з вашого комп'ютера всередину контейнера
+      - .:/app
+    # Встановлюємо змінні середовища для підключення до БД
+    environment:
+      - DB_HOST=db
+      - DB_NAME=todolist_db
+      - DB_USER=todolist_user
+      - DB_PASSWORD=your_strong_password
+    # Вказуємо, що наш додаток залежить від сервісу 'db'
+    # Docker Compose запустить спочатку 'db', а потім 'app'
+    depends_on:
+      - db
+
+  # Сервіс для бази даних MySQL
+  db:
+    # Використовуємо готовий образ MySQL версії 8.0
+    image: mysql:8.0
+    container_name: todolist_db
+    # Встановлюємо змінні середовища для налаштування MySQL
+    environment:
+      MYSQL_DATABASE: todolist_db
+      MYSQL_USER: todolist_user
+      MYSQL_PASSWORD: your_strong_password
+      MYSQL_ROOT_PASSWORD: another_strong_password
+    # Підключаємо іменований том для зберігання даних БД
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+# Оголошуємо іменований том
+volumes:
+  mysql_data:
