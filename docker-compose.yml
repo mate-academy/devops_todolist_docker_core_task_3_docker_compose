@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: todolist_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: todolist
+      MYSQL_USER: todolist_user
+      MYSQL_PASSWORD: todolist_password
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    restart: unless-stopped
+
+  web:
+    build: .
+    container_name: todolist_app
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=mysql://todolist_user:todolist_password@db:3306/todolist
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
