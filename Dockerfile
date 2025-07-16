@@ -1,26 +1,20 @@
-# Stage 1: Build Stage
-ARG PYTHON_VERSION=3.8
-FROM python:${PYTHON_VERSION} as builder
+FROM python:3.10-slim
 
-# Set the working directory
+ENV PYTHONUNBUFFERED=1
 WORKDIR /app
 COPY . .
 
-# Stage 2: Run Stage
-FROM python:${PYTHON_VERSION} as run
+# Встановлюємо системні залежності для mysqlclient
+RUN apt-get update && apt-get install -y \
+    default-libmysqlclient-dev \
+    gcc \
+    python3-dev \
+    pkg-config \
+    && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /app
-
-ENV PYTHONUNBUFFERED=1
-
-COPY --from=builder /app .
-
-RUN pip install --upgrade pip && \
-    pip install -r requirements.txt
-
-RUN python manage.py migrate
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
 
 EXPOSE 8080
 
-# Run database migrations and start the Django application
-ENTRYPOINT ["python", "manage.py", "runserver", "0.0.0.0:8080"]
+ENTRYPOINT ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8080"]
