@@ -1,0 +1,44 @@
+version: "3.9"
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: app_db
+      MYSQL_USER: app_user
+      MYSQL_PASSWORD: 1234
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      # (Не обов’язково, якщо немає файлу — видали)
+      - ./mysql-init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - todo_net
+
+  todo_app:
+    build:
+      context: .
+    container_name: todo_app
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: app_db
+      DB_USER: app_user
+      DB_PASSWORD: 1234
+    entrypoint: ["sh", "entrypoint.sh"]
+    networks:
+      - todo_net
+
+volumes:
+  db_data:
+
+networks:
+  todo_net:
