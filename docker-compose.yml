@@ -1,0 +1,43 @@
+version: "3.0"
+
+services:
+  db:
+    image: mysql-local:2.0.0
+    build:
+      context: .
+      dockerfile: Dockerfile.mysql
+    container_name: mysql-local
+    environment:
+      - ENV MYSQL_ROOT_PASSWORD=1234
+      - ENV MYSQL_DATABASE=app_db
+      - ENV MYSQL_USER=app_user
+      - ENV MYSQL_PASSWORD=1234
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - devops_compose_demo_network
+
+  app-web:
+    image: todoapp:3.0.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: todoapp
+    depends_on:
+      - db
+    restart: unless-stopped
+    environment:
+      - PYTHONUNBUFFERED=1
+    ports:
+      - "8080:8080"
+    networks:
+      - devops_compose_demo_network
+
+volumes:
+  mysql-data:
+
+networks:
+  devops_compose_demo_network:
+    driver: bridge
