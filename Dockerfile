@@ -2,7 +2,6 @@
 ARG PYTHON_VERSION=3.8
 FROM python:${PYTHON_VERSION} as builder
 
-# Set the working directory
 WORKDIR /app
 COPY . .
 
@@ -10,7 +9,6 @@ COPY . .
 FROM python:${PYTHON_VERSION} as run
 
 WORKDIR /app
-
 ENV PYTHONUNBUFFERED=1
 
 COPY --from=builder /app .
@@ -18,9 +16,14 @@ COPY --from=builder /app .
 RUN pip install --upgrade pip && \
     pip install -r requirements.txt
 
-RUN python manage.py migrate
+# Instal MySQL
+RUN apt-get update && apt-get install -y default-mysql-client
 
-EXPOSE 8080
+# add script for waiting
+COPY wait-for-db.sh /wait-for-db.sh
+RUN chmod +x /wait-for-db.sh
 
-# Run database migrations and start the Django application
-ENTRYPOINT ["python", "manage.py", "runserver", "0.0.0.0:8080"]
+EXPOSE 8000
+
+# ENTRYPOINT 
+ENTRYPOINT ["/wait-for-db.sh"]
