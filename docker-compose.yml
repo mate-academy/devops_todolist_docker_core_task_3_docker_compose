@@ -1,0 +1,53 @@
+#version: "3.9"
+
+services:
+  mysql_db:
+    image: mysql-local:1.0.0
+    build:
+      context: .
+      dockerfile: Dockerfile.mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: app_db
+      MYSQL_USER: app_user
+      MYSQL_PASSWORD: 1234
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - db-data-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p1234"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  todoapp:
+    image: todoapp:2.0.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      APP_ENV: Development
+      MYSQL_HOST: mysql_db
+      MYSQL_PORT: 3306
+      MYSQL_USER: app_user
+      MYSQL_PASSWORD: 1234
+      MYSQL_DATABASE: app_db
+    ports:
+      - "8000:8000"
+    networks:
+      - db-data-net
+    depends_on:
+      mysql_db:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  db-data:
+
+networks:
+  db-data-net:
+    driver: bridge
