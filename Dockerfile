@@ -2,7 +2,6 @@
 ARG PYTHON_VERSION=3.8
 FROM python:${PYTHON_VERSION} as builder
 
-# Set the working directory
 WORKDIR /app
 COPY . .
 
@@ -10,17 +9,15 @@ COPY . .
 FROM python:${PYTHON_VERSION} as run
 
 WORKDIR /app
-
 ENV PYTHONUNBUFFERED=1
 
 COPY --from=builder /app .
 
+# Install dependencies
 RUN pip install --upgrade pip && \
     pip install -r requirements.txt
-
-RUN python manage.py migrate
 
 EXPOSE 8080
 
 # Run database migrations and start the Django application
-ENTRYPOINT ["sh", "-c", "python manage.py migrate --noinput && python manage.py runserver 0.0.0.0:8000"]
+ENTRYPOINT ["sh", "-c", "python manage.py migrate --noinput && python manage.py runserver 0.0.0.0:8080"]
