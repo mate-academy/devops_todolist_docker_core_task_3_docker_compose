@@ -1,4 +1,10 @@
-## To run the app with docker-compose use one of the following commands:
-  -  ```docker-compose up```
-  -  ```docker-compose -d``` to run in detach mode
-  -  ```docker-compose --build``` to always rebuild all the images
+# Інструкція запуску Django-Todolist з Docker Compose
+
+### Вимоги
+- Встановлений Docker та docker-compose
+
+### Запуск
+1. Побудувати і запустити контейнери у фоновому режимі:
+
+```bash
+docker-compose up --build -d
