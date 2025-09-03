@@ -18,9 +18,8 @@ COPY --from=builder /app .
 RUN pip install --upgrade pip && \
     pip install -r requirements.txt
 
-RUN python manage.py migrate
+RUN apt-get update && apt-get install -y default-mysql-client
 
 EXPOSE 8080
 
-# Run database migrations and start the Django application
-ENTRYPOINT ["python", "manage.py", "runserver", "0.0.0.0:8080"]
+CMD ["sh", "entrypoint.sh"]
