@@ -19,6 +19,11 @@ services:
       - MYSQL_PASSWORD=1234
     networks:
       - todoapp-net
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "mysql-container", "-p1234" ]
+      interval: 5s
+      retries: 10
+      start_period: 10s
 
   todoapp:
     image: todoapp:latest
@@ -29,10 +34,16 @@ services:
       - "8000:8080"
     environment:
       - APP_ENV=Development
+      - DB_HOST=mysql-container
+      - DB_NAME=app_db
+      - DB_USER=app_user
+      - DB_PASSWORD=1234
+      - DB_PORT=3306
     networks:
       todoapp-net:
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     restart: unless-stopped
 
 volumes:
