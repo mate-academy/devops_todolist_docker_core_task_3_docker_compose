@@ -6,7 +6,7 @@
 
 1. Clone the project from GitHub  
    ```
-   git pull https://github.com/DemqN96/devops_todolist_docker_core_task_3_docker_compose
+   git сlone https://github.com/DemqN96/devops_todolist_docker_core_task_3_docker_compose
    ```
 
 2. Create a file named **docker-compose.yml**  
