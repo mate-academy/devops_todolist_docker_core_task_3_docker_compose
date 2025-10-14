@@ -12,7 +12,7 @@ services:
       dockerfile: Dockerfile.mysql
     container_name: my-sql
     ports:
-      - "3307:3307"
+      - "3307:3306"
     volumes:
       - db-data:/var/lib/mysql
     environment:
@@ -33,6 +33,12 @@ services:
       - "8000:8000"
     environment:
       - APP_ENV=Development
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=app_db
+      - DB_USER=app_user
+      - DB_PASSWORD=1234
+
     networks:
       - db-data-net
     depends_on:

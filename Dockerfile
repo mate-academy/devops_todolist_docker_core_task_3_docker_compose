@@ -21,4 +21,4 @@ RUN pip install --upgrade pip && \
 EXPOSE 8000
 
 # Run database migrations and start the Django application
-ENTRYPOINT ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
+ENTRYPOINT ["sh", "-c", "while ! nc -z $DB_HOST $DB_PORT; do sleep 2; done; python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
