@@ -13,11 +13,11 @@ docker-compose up
 Django app → http://localhost:8000
 API → http://localhost:8000/api/
 
-Зупинити всі контейнери:
-docker-compose down
+Переглянути логи:
+docker-compose logs -f app
 
-Зупинити та видалити всі дані БД:
-docker-compose down -v
+Зупинити контейнери:
+docker-compose down
 
 Дані:
 Todos зберігаються у MySQL контейнері, у volume db-data
