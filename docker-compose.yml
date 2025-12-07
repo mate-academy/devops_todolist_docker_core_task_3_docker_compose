@@ -1,4 +1,4 @@
-version: "3"
+version: "2.4"
 networks:
   db-data-net:
     driver: bridge
@@ -13,13 +13,18 @@ services:
     networks:
       - db-data-net
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     restart: unless-stopped
   mysql:
-    image: mysql:1.0
     build:
       context: .
       dockerfile: Dockerfile.mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 5s
+      timeout: 3s
+      retries: 10
     container_name: mysql
     ports:
       - "3306:3306"
