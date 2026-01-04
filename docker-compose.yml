@@ -1,0 +1,40 @@
+version: '3.8'
+networks:
+  app-network:
+    driver: bridge
+services:
+  app:
+    image: todoapp:2.0.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: todoapp
+    environment:
+      - PYTHONUNBUFFERED=1
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+    depends_on:
+     - mysql
+    restart: unless-stopped
+  mysql:
+    image: mysql-local:1.0.0
+    build:
+      context: .
+      dockerfile: Dockerfile.mysql
+    container_name: mysql-local
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=app_db
+      - MYSQL_USER=app_user
+      - MYSQL_PASSWORD=1234
+    ports:
+      - "3306:3306"
+    networks:
+      - app-network
+    volumes:
+      - mysql-data:/var/lib/mysql
+volumes:
+  mysql-data:
+    driver: local
