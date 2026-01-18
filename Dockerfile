@@ -13,13 +13,19 @@ WORKDIR /app
 
 ENV PYTHONUNBUFFERED=1
 
+# Встановлюємо netcat-openbsd (він стабільніший та підтримує команду nc)
+RUN apt-get update && apt-get install -y netcat-openbsd && rm -rf /var/lib/apt/lists/*
+
 COPY --from=builder /app .
 
 RUN pip install --upgrade pip && \
     pip install -r requirements.txt
 
+# Робимо скрипт виконуваним
+RUN chmod +x /app/wait-for-it.sh
+
 
 EXPOSE 8080
 
 # Run database migrations and start the Django application
-ENTRYPOINT ["sh", "-c", "python manage.py migrate --noinput && python manage.py runserver 0.0.0.0:8080"]
+ENTRYPOINT ["./wait-for-it.sh", "mysql", "python manage.py migrate --noinput && python manage.py runserver 0.0.0.0:8080"]
