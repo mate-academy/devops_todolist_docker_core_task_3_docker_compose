@@ -1,0 +1,8 @@
+__pycache__/
+
+.python-version
+
+__pypackages__/
+
+.venv
+venv/
