@@ -1,0 +1,49 @@
+version: '3.8'
+
+networks:
+  todolist-net:
+    driver: bridge
+
+volumes:
+  db-todolist:
+
+services:
+  mysql:
+    image: my-sql:1.0.0
+    build:
+      context: .
+      dockerfile: Dockerfile.mysql
+    container_name: my-sql
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: app_db
+      MYSQL_USER: app_user
+      MYSQL_PASSWORD: 1234
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-todolist:/var/lib/mysql
+    networks:
+      - todolist-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  pythonapp:
+    image: app:1.0.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app
+    environment:
+      - PYTHONUNBUFFERED=1
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - todolist-net
+    restart: unless-stopped
