@@ -25,6 +25,11 @@ services:
       - db-todolist:/var/lib/mysql
     networks:
       - todolist-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
   pythonapp:
     image: app:1.0.0
@@ -37,8 +42,8 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     networks:
       - todolist-net
     restart: unless-stopped
-    

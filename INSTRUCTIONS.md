@@ -19,7 +19,7 @@
 4. **Access the Application**
    Open your browser and go to:
    ```
-   http://localhost:8000
+   http://localhost:8080
    ```
 
 ## Stopping the Containers
