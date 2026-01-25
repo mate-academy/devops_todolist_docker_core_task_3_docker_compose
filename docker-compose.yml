@@ -1,0 +1,47 @@
+networks:
+  db-data-net:
+    driver: bridge
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: todolist-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: todolist
+      MYSQL_USER: todolist
+      MYSQL_PASSWORD: todolist_password
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - db-data-net
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: todolist-web
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_HOST: db
+      DB_PORT: "3306"
+      DB_NAME: todolist
+      DB_USER: todolist
+      DB_PASSWORD: todolist_password
+    ports:
+      - "8000:8000"
+    networks:
+      - db-data-net
+    entrypoint: ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
+
+volumes:
+  db-data:
