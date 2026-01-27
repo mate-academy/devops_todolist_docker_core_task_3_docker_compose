@@ -8,9 +8,18 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    ports: "8088:8080"
-    networks: db-data-net
-    depends_on: mysql
+    ports:
+      - "8088:8080"
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_PORT=3306
+      - MYSQL_USER=app_user
+      - MYSQL_PASSWORD=1234
+      - MYSQL_DB=app_db
+    networks:
+      - db-data-net
+    depends_on:
+      - mysql
     restart: unless-stopped
   mysql:
     image: mysql:1.0
