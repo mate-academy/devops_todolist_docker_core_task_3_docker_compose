@@ -8,9 +8,6 @@ services:
   mysql:
     image: mysql:8.0
     container_name: mysql
-    build:
-      context: .
-      dockerfile: Dockerfile.mysql
     ports:
       - "3306:3306"
     volumes:
@@ -24,11 +21,10 @@ services:
       - db-data-net
 
   pythonapp:
-    image: app:1.0
-    container_name: pythonapp
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: pythonapp
     ports:
       - "8000:8000"
     networks:
