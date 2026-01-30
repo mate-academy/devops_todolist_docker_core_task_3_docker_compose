@@ -1,7 +1,9 @@
-version: '3'
+version: '3.8'
+
 networks:
   db-data-net:
     driver: bridge
+
 services:
   pythonapp:
     image: todoapp:2.0.1
@@ -13,8 +15,10 @@ services:
     networks:
       - db-data-net
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     restart: unless-stopped
+
   mysql:
     image: mysql-local:1.0.1
     build:
@@ -27,5 +31,13 @@ services:
       - db-data:/var/lib/mysql
     networks:
       - db-data-net
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p$$MYSQL_ROOT_PASSWORD"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
 volumes:
   db-data:
+  
