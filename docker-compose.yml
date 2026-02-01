@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  db:
+    image: my-sql:1.2
+    build:
+      context: .
+      dockerfile: Dockerfile.mysql
+    container_name: my-sql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: app_db
+      MYSQL_USER: app_user
+      MYSQL_PASSWORD: 1234
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - db-data-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "app_user", "-p1234"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  app:
+    image: app:1.2
+    build: .
+    container_name: pythonapp
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_HOST=db
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - db-data-net
+
+volumes:
+  db_data:
+
+networks:
+  db-data-net:
+    driver: bridge
