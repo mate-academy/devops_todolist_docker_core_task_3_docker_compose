@@ -11,3 +11,4 @@ From the repository root:
 
 ```bash
 docker compose up --build
+```

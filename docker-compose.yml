@@ -1,3 +1,4 @@
+version: "2.1"
 services:
   db:
     image: mysql:8.0
@@ -8,12 +9,10 @@ services:
       MYSQL_DATABASE: app_db
       MYSQL_USER: app_user
       MYSQL_PASSWORD: "1234"
-    ports:
-      - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p1234"]
+      test: ["CMD-SHELL", "mysql -h 127.0.0.1 -uapp_user -p1234 -D app_db -e 'SELECT 1' >/dev/null 2>&1"]
       interval: 5s
       timeout: 5s
       retries: 30
