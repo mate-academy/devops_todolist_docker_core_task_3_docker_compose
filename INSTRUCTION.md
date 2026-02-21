@@ -1,12 +1,12 @@
 # INSTRUCTION
 
-This project runs Django Todolist + MySQL using Docker Compose.
+This project runs a Django Todolist application with a MySQL database using Docker Compose.
 
 ## Prerequisites
 - Docker Engine / Docker Desktop installed
-- Docker Compose v2 available (`docker compose`)
+- Docker Compose v2 (use `docker compose`)
 
-## Build and start (foreground)
+## Start (foreground)
 From the repository root:
 
 ```bash
