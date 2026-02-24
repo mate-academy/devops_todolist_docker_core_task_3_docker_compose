@@ -1,0 +1,40 @@
+services:
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile.mysql
+    expose:
+      - "3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=app_db
+      - MYSQL_USER=app_user
+      - MYSQL_PASSWORD=1234
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - db-data-network
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "-uroot", "-p1234" ]
+      timeout: 5s
+      retries: 10
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - db-data-network
+    environment:
+      - DB_HOST=db
+    restart: unless-stopped
+volumes:
+  db-data:
+networks:
+  db-data-network:
+    driver: bridge
