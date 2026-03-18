@@ -18,9 +18,8 @@ COPY --from=builder /app .
 RUN pip install --upgrade pip && \
     pip install -r requirements.txt
 
-RUN python manage.py migrate
-
 EXPOSE 8080
 
 # Run database migrations and start the Django application
-ENTRYPOINT ["python", "manage.py", "runserver", "0.0.0.0:8080"]
+# (db is not available during build, so migrations run at container start)
+ENTRYPOINT ["sh", "-c", "python -c \"import os, socket, time; host=os.getenv('DB_HOST','db'); port=int(os.getenv('DB_PORT','3306')); deadline=time.time()+60;\\n\\nwhile True:\\n  try:\\n    s=socket.create_connection((host,port), timeout=2); s.close(); break\\n  except OSError:\\n    if time.time()>deadline: raise\\n    time.sleep(1)\" && python manage.py migrate && python manage.py runserver 0.0.0.0:8080"]
