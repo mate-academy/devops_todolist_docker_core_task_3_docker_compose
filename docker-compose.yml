@@ -1,0 +1,47 @@
+version: '3'
+
+networks:
+  todo-network:
+    driver: bridge
+
+services:
+
+  todo-app:
+    image: todo-app-image:1.0.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: todo-app
+    networks:
+      - todo-network
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    depends_on:
+      todo-db:
+        condition: service_healthy
+
+
+  todo-db:
+    image: mysql:latest
+    container_name: todo-db
+    networks:
+      - todo-network
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=app_db
+      - MYSQL_USER=app_user
+      - MYSQL_PASSWORD=1234
+    volumes:
+      - todo-volume:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p1234"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  todo-volume:
+    driver: local
