@@ -1,110 +1,50 @@
-Потрібно: Docker і Docker Compose.
+Install Docker and Docker Compose
 
+Clone the repository:
 
-Клон репозиторій:
+bash
 git clone <repository_url>
-cd <repo_folder>
+cd <repository_folder>
+Ensure the following files exist in the project root: Dockerfile, docker-compose.yml, requirements.txt
 
+Build and run locally: docker-compose up --build
 
-Переконайся, що в корені проекту є:
+Run in detached mode: docker-compose up --build -d
 
-Dockerfile
-docker-compose.yml
-requirements.txt
+Check running containers: docker ps
 
+View web service logs: docker logs app-web --tail 100 -f
 
+View database logs: docker logs app-db --tail 100 -f
 
-Побудова та запуск (локально, у терміналі):
-docker-compose up --build
-Щоб запустити у фоновому режимі:
-docker-compose up --build -d
+Access the application in browser: http://localhost:8000
 
+Access API: http://localhost:8000/api/
 
-Перевірка запуску
+Stop containers: docker-compose down
 
-Подивитися список контейнерів:
-docker ps
-Логи веб-сервісу:
-docker logs app-web --tail 100 -f
-Логи БД:
-docker logs app-db --tail 100 -f
+Stop and remove volumes (delete all DB data): docker-compose down -v
 
+Database persistence: db-data volume stores MySQL data, use docker-compose down -v to reset completely
 
+Port mapping: 8000:8000 for web, 3306:3306 for MySQL, ensure ports are free
 
-Доступ до застосунку
+Troubleshooting:
 
-Відкрий у браузері: http://localhost:8000
-API: http://localhost:8000/api/
+ModuleNotFoundError: No module named 'django' → check requirements.txt, rebuild with docker-compose build --no-cache web, ensure Dockerfile has COPY requirements.txt . and RUN pip install -r requirements.txt
 
+Migrations fail because DB not ready → add wait loop until nc -z db 3306; do sleep 1; done, check env variables DB_HOST=db, DB_NAME=app_db, DB_USER=app_user, DB_PASSWORD=1234, DB_PORT=3306
 
+OperationalError (DB connection) → check credentials and DB name in docker-compose.yml, verify MySQL logs with docker logs app-db
 
-Зупинка і очищення
+Developer commands:
 
+Enter web container: docker exec -it app-web sh
 
-Зупинити:
-docker-compose down
+Check installed libraries: pip freeze
 
+Run migrations manually: python manage.py migrate --noinput
 
-Зупинити і видалити томи (видалить усі дані БД):
-docker-compose down -v
+Create superuser: python manage.py createsuperuser
 
-
-Важливі примітки
-
-Персистентність БД: том db-data у docker-compose зберігає дані MySQL у каталозі контейнера. Використовуй docker-compose down -v, якщо хочеш повністю очистити базу.
-Port mapping: у цьому проєкті проброс портів налаштовано як 8000:8000 (веб) і 3306:3306 (MySQL). Переконайся, що ці порти вільні на хості.
-
-Діагностика типових проблем
-
-
-ModuleNotFoundError: No module named 'django'
-
-Переконайся, що requirements.txt є і що образ був перебудований після змін:
-docker-compose build --no-cache web
-Перевір, що Dockerfile містить:
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-
-
-Міграції не виконуються через те, що БД ще не готова
-
-Образ веб-сервісу очікує доступності БД перед викликом python manage.py migrate. Переконайся, що в docker-compose.yml є цикл очікування:
-until nc -z db 3306; do sleep 1; done
-Перевір змінні оточення у docker-compose.yml:
-DB_HOST=db
-DB_NAME=app_db
-DB_USER=app_user
-DB_PASSWORD=1234
-(за потреби додай DB_PORT=3306)
-
-
-
-Помилка підключення до БД (OperationalError)
-
-Перевір облікові дані та імʼя БД у docker-compose.yml.
-Переконайся, що MySQL стартував і не має помилок (див. логи app-db).
-
-
-
-Команди для розробника / налагодження
-
-Зайти в контейнер web:
-docker exec -it app-web sh
-Перевірити встановлені бібліотеки:
-pip freeze
-Запустити міграції вручну:
-python manage.py migrate --noinput
-Створити суперюзера:
-python manage.py createsuperuser
-
-
-docker-compose up --build -d
-docker-compose up --build
-docker-compose down
-docker-compose down -v
-docker-compose restart web
-docker-compose exec web python manage.py migrate
-
-
- init SQL виконується лише при першій ініціалізації тома і як видалити том, якщо треба (docker-compose down -v).
+Init SQL scripts run only on first DB volume initialization; to re-run, remove volume with docker-compose down -v

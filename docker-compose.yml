@@ -30,7 +30,7 @@ services:
       - "8000:8000"
     volumes:
       - .:/app
-    command: >-
+    entrypoint: >-
       sh -c "
       until nc -z db 3306; do echo 'waiting for db...'; sleep 1; done;
       python manage.py migrate --noinput &&
