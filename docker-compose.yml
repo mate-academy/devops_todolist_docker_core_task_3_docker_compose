@@ -10,17 +10,18 @@ services:
     depends_on:
       - db
     restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: "app_db"
+      MYSQL_USER: "app_user"
+      MYSQL_PASSWORD: "1234"
+      MYSQL_HOST: "db"
+      MYSQL_PORT: "3306"
 
   db:
     build:
       context: .
       dockerfile: Dockerfile.mysql
     container_name: mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: "1234"
-      MYSQL_DATABASE: "app_db"
-      MYSQL_USER: "app_user"
-      MYSQL_PASSWORD: "1234"
     ports:
       - "3306:3306"
     volumes:
