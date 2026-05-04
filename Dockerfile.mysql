@@ -12,3 +12,4 @@ EXPOSE 3306
 
 # Set the data directory as a volume
 VOLUME /var/lib/mysql
+
