@@ -1,8 +1,11 @@
-venv
-__pycache__
+venv/
+__pycache__/
+*.xml
 .env
-.log
-.pot
+*.log
+*.pyo
+*.pyd
+*.pot
 .pyc
 .idea
 .vscode
