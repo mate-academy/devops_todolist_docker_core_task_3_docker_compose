@@ -6,6 +6,6 @@ __pycache__/
 *.pyo
 *.pyd
 *.pot
-.pyc
+*.pyc
 .idea
 .vscode
