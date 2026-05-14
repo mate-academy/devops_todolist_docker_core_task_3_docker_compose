@@ -18,7 +18,9 @@ COPY --from=builder /app .
 RUN pip install --upgrade pip && \
     pip install -r requirements.txt
 
-RUN python manage.py migrate
+COPY . .
+
+RUN chmod +x entrypoint.sh
 
 EXPOSE 8080
 
