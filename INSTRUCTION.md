@@ -15,7 +15,7 @@ Before running the commands, ensure that:
 
 ## 1. Launching the Application
 
-To build the Docker images and start both the MySQL database and the Django application containers simultaneously in the background (detached mode), execute the following command:
+To build the Docker images and start both the MySQL database and the Django application containers  simultaneously in the background (detached mode), execute the following command:
 
 ```bash
 docker-compose up -d --build
