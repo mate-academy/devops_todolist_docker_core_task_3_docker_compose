@@ -19,6 +19,11 @@ services:
       - MYSQL_PASSWORD=1234
     networks:
       - todo-app-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
   todoapp:
     image: todoapp:1.0.0
     build:
@@ -32,7 +37,8 @@ services:
     networks:
       - todo-app-network
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     restart: unless-stopped
 volumes:
   mysql-data:
