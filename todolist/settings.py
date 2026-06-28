@@ -64,7 +64,7 @@ WSGI_APPLICATION = "todolist.wsgi.application"
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 DATABASES = {
     'default': {
-        ''ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': os.environ.get('MYSQL_DATABASE', 'app_db'),
         'USER': os.environ.get('MYSQL_USER', 'app_user'),
         'PASSWORD': os.environ.get('MYSQL_PASSWORD', '1234'),
