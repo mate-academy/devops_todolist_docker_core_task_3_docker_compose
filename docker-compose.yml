@@ -3,15 +3,17 @@ version: '3'
 
 services:
   mysql: 
-    image: mysql:1.0.1
-    build:
-      context: .
-      dockerfile: Dockerfile.mysql
+    image: mysql:8.0
     container_name: my-sql
     ports:
       - "3306:3306"
     volumes:
       - db-data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=app_db
+      - MYSQL_USER=app_user
+      - MYSQL_PASSWORD=1234
   web:
     image: app:2.0.1
     build:
