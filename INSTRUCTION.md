@@ -5,7 +5,7 @@
 1. **Build and start the containers:**
    Run the following command in the project root directory:
    ```bash
-   docker-compose up --
+   docker-compose up --build
    
 2. **Access the application**
     ```bash

@@ -1,10 +1,11 @@
 version: "3.8"
+
 networks:
     db-data-net:
         driver: bridge
+
 services:
     pythonapp:
-      image: app:1.0
       build:
         context: .
         dockerfile: Dockerfile
@@ -19,13 +20,12 @@ services:
       networks:
         - db-data-net
       depends_on:
-        - mysql
+        mysql:
+          condition: service_healthy
       restart: unless-stopped
+
     mysql:
         image: mysql:8.0
-        build:
-            context: .
-            dockerfile: Dockerfile.mysql
         container_name: mysql
         ports:
           - "3306:3306"
@@ -38,5 +38,10 @@ services:
           - MYSQL_PASSWORD=1234
         networks:
           - db-data-net
+        healthcheck:
+          test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+          interval: 3s
+          timeout: 3s
+          retries: 10
 volumes:
     db-data:
