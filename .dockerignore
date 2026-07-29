@@ -1,0 +1,13 @@
+#github
+.github
+.git 
+
+#venv
+/venv
+
+#python
+__pychache__
+*.pyc
+
+#license
+LICENSE
