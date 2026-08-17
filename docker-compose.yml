@@ -1,0 +1,46 @@
+services:
+
+  todoapp:
+    image: todoapp:3.0.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: todoapp
+    ports:
+      - "8080:8080"
+    environment:
+      - PYTHONUNBUFFERED=1
+    networks:
+      - todo-data-net
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: unless-stopped
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8080"
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    ports:
+      - "3310:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=app_db
+      - MYSQL_USER=app_user
+      - MYSQL_PASSWORD=1234
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "app_user", "-p1234" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - todo-data-net
+
+networks:
+  todo-data-net:
+    driver: bridge
+
+volumes:
+  db-data:
