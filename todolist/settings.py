@@ -13,6 +13,9 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+# Database host from environment (docker-compose: "db"), fallback to localhost
+DB_HOST = os.environ.get("DB_HOST", "localhost")
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
@@ -66,8 +69,8 @@ DATABASES = {
         'NAME': 'app_db',
         'USER': 'app_user',
         'PASSWORD': '1234',
-        'HOST': '172.17.0.2',  # You can use a different host if your MySQL server is on a remote machine.
-        'PORT': '',  # Leave this empty to use the default MySQL port (3306).
+        'HOST': DB_HOST,
+        'PORT': '3306',
     }
 }
 
