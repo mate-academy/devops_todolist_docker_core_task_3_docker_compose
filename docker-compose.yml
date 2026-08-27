@@ -1,9 +1,6 @@
 services:
   mysql:
     image: mysql
-    build:
-      context: .
-      dockerfile: Dockerfile.mysql
     volumes:
       - mysql-data:/var/lib/mysql
     environment:
