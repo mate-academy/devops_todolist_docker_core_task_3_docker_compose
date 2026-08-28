@@ -2,7 +2,11 @@
 
 ## Run the Application
 
-Run MySQL and Todo application containers:
+Make sure Docker Desktop is running.
+
+Open a terminal in the project directory where `docker-compose.yml` is located.
+
+Build and start the MySQL database and Todo application:
 
 docker compose up -d
 
@@ -10,9 +14,17 @@ The application will be available at:
 
 http://localhost:8080
 
+To view container logs:
+
+docker compose logs
+
+To check the status of the containers:
+
+docker compose ps
+
 ## Stop the Application
 
-Stop the application:
+Stop and remove the application containers:
 
 docker compose down
 
