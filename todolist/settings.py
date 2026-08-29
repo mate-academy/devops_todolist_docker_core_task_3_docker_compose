@@ -17,6 +17,13 @@ DATABASE_USER = os.environ.get("MYSQL_USER", "app_user")
 DATABASE_PASSWORD = os.environ.get("MYSQL_PASSWORD", "1234")
 DATABASE_HOST = os.environ.get("MYSQL_HOST", "127.0.0.1")
 DATABASE_PORT = os.environ.get("MYSQL_PORT", "3306")
+ALLOWED_HOSTS = [
+    host.strip()
+    for host in os.environ.get(
+        "DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1,0.0.0.0,app"
+    ).split(",")
+    if host.strip()
+]
 
 
 # Quick-start development settings - unsuitable for production
@@ -27,8 +34,6 @@ SECRET_KEY = "@e2(yx)v&tgh3_s=0yja-i!dpebxsz^dg47x)-k&kq_3zf*9e*"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = []
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 

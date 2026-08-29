@@ -26,7 +26,7 @@ This will:
 - start the MySQL container
 - wait until MySQL is healthy
 - run Django migrations
-- start the web application on `http://localhost:8000`
+- start the web application on `http://localhost:8080`
 
 ## Stop the stack
 
@@ -58,8 +58,8 @@ docker-compose up --build
 
 ## Application URLs
 
-- Application: `http://localhost:8000`
-- API: `http://localhost:8000/api/`
+- Application: `http://localhost:8080`
+- API: `http://localhost:8080/api/`
 
 ## Persistence
 
