@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+DATABASE_NAME = os.environ.get("MYSQL_DATABASE", "app_db")
+DATABASE_USER = os.environ.get("MYSQL_USER", "app_user")
+DATABASE_PASSWORD = os.environ.get("MYSQL_PASSWORD", "1234")
+DATABASE_HOST = os.environ.get("MYSQL_HOST", "127.0.0.1")
+DATABASE_PORT = os.environ.get("MYSQL_PORT", "3306")
 
 
 # Quick-start development settings - unsuitable for production
@@ -63,11 +68,11 @@ WSGI_APPLICATION = "todolist.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'mysql.connector.django',
-        'NAME': 'app_db',
-        'USER': 'app_user',
-        'PASSWORD': '1234',
-        'HOST': '172.17.0.2',  # You can use a different host if your MySQL server is on a remote machine.
-        'PORT': '',  # Leave this empty to use the default MySQL port (3306).
+        'NAME': DATABASE_NAME,
+        'USER': DATABASE_USER,
+        'PASSWORD': DATABASE_PASSWORD,
+        'HOST': DATABASE_HOST,
+        'PORT': DATABASE_PORT,
     }
 }
 
