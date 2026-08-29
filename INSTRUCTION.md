@@ -15,7 +15,7 @@ This project runs as two containers:
 Run the following command from the repository root:
 
 ```bash
-docker compose up --build
+docker-compose up --build
 ```
 
 This will:
@@ -33,13 +33,13 @@ This will:
 To stop containers but keep the database volume:
 
 ```bash
-docker compose down
+docker-compose down
 ```
 
 To stop containers and remove the persistent volume:
 
 ```bash
-docker compose down -v
+docker-compose down -v
 ```
 
 ## Useful commands
@@ -47,13 +47,13 @@ docker compose down -v
 View logs:
 
 ```bash
-docker compose logs -f
+docker-compose logs -f
 ```
 
 Rebuild images after code changes:
 
 ```bash
-docker compose up --build
+docker-compose up --build
 ```
 
 ## Application URLs
