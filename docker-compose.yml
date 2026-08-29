@@ -1,10 +1,6 @@
-version: '3.8'
-
 services:
   db:
-    build:
-      context: .
-      dockerfile: Dockerfile.mysql
+    image: mysql:8.0
     ports:
       - "3308:3306"
     volumes:
@@ -25,6 +21,9 @@ services:
       - db
     environment:
       - DB_HOST=db
+      - DB_NAME=app_db
+      - DB_USER=app_user
+      - DB_PASSWORD=1234
 
 volumes:
   db_data:
