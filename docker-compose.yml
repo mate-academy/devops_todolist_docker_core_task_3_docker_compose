@@ -6,7 +6,7 @@ networks:
 
 services:
   pythonapp:
-    image: todoapp:3.0.0
+    image: nosenkoalena501/todoapp:3.0.0
     build:
       context: .
       dockerfile: Dockerfile.app
@@ -21,7 +21,7 @@ services:
     restart: unless-stopped
 
   mysql:
-    image: mysql-local:1.0.0
+    image: nosenkoalena501/mysql-local:1.0.0
     build:
       context: .
       dockerfile: Dockerfile.mysql
