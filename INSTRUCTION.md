@@ -14,6 +14,14 @@ From the project root directory:
 docker compose up
 ```
 
+## Stop containers
+
+From the project root directory:
+
+```bash
+docker compose down
+```
+
 ## Access the application in a browser
 
 After both containers are running, open:
