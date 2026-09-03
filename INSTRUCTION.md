@@ -6,17 +6,64 @@ App image repository: [artemzakharchukhome/todoapp](https://hub.docker.com/repos
 
 MySQL image repository: [artemzakharchukhome/mysql-local](https://hub.docker.com/repository/docker/artemzakharchukhome/mysql-local/general)
 
-## Build the images
+## Build and run
 
 From the project root directory:
 
 ```bash
-docker compose up
+docker compose up --build
 ```
+
+To run in the background:
+
+```bash
+docker compose up --build -d
+```
+
+## Rebuild after code changes
+
+If you change application code or Docker configuration, rebuild the images:
+
+```bash
+docker compose build
+```
+
+Or rebuild and start in one step:
+
+```bash
+docker compose up --build
+```
+
+## View logs
+
+Follow logs from all services:
+
+```bash
+docker compose logs -f
+```
+
+Logs for a specific service:
+
+```bash
+docker compose logs -f app
+docker compose logs -f mysql
+```
+
+## Persistent volume
+
+MySQL data is stored in a Docker volume named `mysql_data`. This volume keeps todos and database data across container restarts and `docker compose down`.
+
+To remove containers **and** delete all stored data:
+
+```bash
+docker compose down --volumes
+```
+
+> **Warning:** `--volumes` permanently deletes all todos and database data.
 
 ## Stop containers
 
-From the project root directory:
+Stop and remove containers (volume is preserved):
 
 ```bash
 docker compose down
