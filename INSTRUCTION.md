@@ -21,3 +21,14 @@ http://localhost:8080 (or http://127.0.0.1:8080)
 ```bash
 docker compose stop
 ```
+## Stopping and Cleaning Up Resources
+
+To stop running containers without removing volumes:
+```bash
+docker compose down
+```
+To stop containers, remove networks, and completely delete persistent data (volumes) for a fresh start:
+
+```bash
+docker compose down -v
+```
