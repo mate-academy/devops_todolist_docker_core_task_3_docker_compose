@@ -4,13 +4,13 @@
 
 Build and start the containers in detached mode:
 
-```bash"
+```bash
 docker compose up -d --build
 ```
 
 Open the application at:
 
-```text"
+```text
 http://localhost:8080
 ```
 
@@ -18,7 +18,7 @@ http://localhost:8080
 
 Stop the running containers:
 
-```bash"
+```bash
 docker compose stop
 ```
 
@@ -26,7 +26,7 @@ docker compose stop
 
 Stop and remove the containers and network:
 
-```bash"
+```bash
 docker compose down
 ```
 
