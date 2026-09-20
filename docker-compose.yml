@@ -21,7 +21,6 @@ services:
     restart: unless-stopped
 
   mysql:
-    image: mysql:8.0
     build:
       context: .
       dockerfile: Dockerfile.mysql
@@ -36,7 +35,6 @@ services:
       MYSQL_DATABASE: app_db
       MYSQL_USER: app_user
       MYSQL_PASSWORD: 1234
-      SOM: 1
     networks:
       - db-data-net
 

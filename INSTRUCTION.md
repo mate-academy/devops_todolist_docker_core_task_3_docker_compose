@@ -20,7 +20,7 @@ docker-compose ps
  
 Open the app in your browser:
  
-- http://localhost:8000/
+- http://localhost:8081/ 
 ## Stop
  
 ```bash
