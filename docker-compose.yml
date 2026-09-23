@@ -1,4 +1,4 @@
-version: '1.0.0'
+version: '1'
 networks:
   db-data-net:
     driver: bridge
@@ -20,7 +20,7 @@ services:
     restart: unless-stopped
 
   mysql:
-    image: mysql-local:2.0.0
+    image: mysql:8.0
     build:
       context: .
       dockerfile: Dockerfile.mysql

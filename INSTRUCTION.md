@@ -10,9 +10,9 @@ Clone the project repository from Git.
 ---
 Run
 ```bash
-docker-composer up -d
+docker-compose up -d
 ```
 To stop it, use the following command:
 ```bash
-docker-composer down
+docker-compose down
 ```
