@@ -12,3 +12,5 @@ EXPOSE 3306
 
 # Set the data directory as a volume
 VOLUME /var/lib/mysql
+
+# To Luke: here is Dockerfile.mysql which was here the whole time!!!
