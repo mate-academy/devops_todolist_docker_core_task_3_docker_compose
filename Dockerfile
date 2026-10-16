@@ -1,26 +1,15 @@
-# Stage 1: Build Stage
-ARG PYTHON_VERSION=3.8
-FROM python:${PYTHON_VERSION} as builder
-
-# Set the working directory
-WORKDIR /app
-COPY . .
-
-# Stage 2: Run Stage
-FROM python:${PYTHON_VERSION} as run
-
-WORKDIR /app
+ARG PYTHON_VERSION=3.9.6
+FROM python:${PYTHON_VERSION}-slim
 
 ENV PYTHONUNBUFFERED=1
+WORKDIR /app
 
-COPY --from=builder /app .
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-RUN pip install --upgrade pip && \
-    pip install -r requirements.txt
-
-RUN python manage.py migrate
+COPY . .
 
 EXPOSE 8080
 
-# Run database migrations and start the Django application
-ENTRYPOINT ["python", "manage.py", "runserver", "0.0.0.0:8080"]
+# Run migrations only after Compose has started the healthy database.
+ENTRYPOINT ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8080"]
