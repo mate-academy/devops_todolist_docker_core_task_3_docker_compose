@@ -1,0 +1,40 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: todolist-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: app_db
+      MYSQL_USER: app_user
+      MYSQL_PASSWORD: "1234"
+      MYSQL_ROOT_PASSWORD: root_password
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "mysqladmin ping -h localhost -uroot -p$$MYSQL_ROOT_PASSWORD",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  app:
+    build: .
+    container_name: todolist-app
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      DB_NAME: app_db
+      DB_USER: app_user
+      DB_PASSWORD: "1234"
+      DB_HOST: db
+      DB_PORT: "3306"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  mysql_data:
