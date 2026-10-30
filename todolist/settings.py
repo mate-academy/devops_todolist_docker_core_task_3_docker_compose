@@ -8,14 +8,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
+# Build paths inside the project.
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
+# Quick-start development settings - unsuitable for production.
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "@e2(yx)v&tgh3_s=0yja-i!dpebxsz^dg47x)-k&kq_3zf*9e*"
@@ -23,9 +22,10 @@ SECRET_KEY = "@e2(yx)v&tgh3_s=0yja-i!dpebxsz^dg47x)-k&kq_3zf*9e*"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
+
 
 # Application definition
 
@@ -58,21 +58,22 @@ ROOT_URLCONF = "todolist.urls"
 WSGI_APPLICATION = "todolist.wsgi.application"
 
 
-# Database
-# https://docs.djangoproject.com/en/1.7/ref/settings/#databases
+# Database configuration
+# MySQL runs as the "db" service in Docker Compose.
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'mysql.connector.django',
-        'NAME': 'app_db',
-        'USER': 'app_user',
-        'PASSWORD': '1234',
-        'HOST': '172.17.0.2',  # You can use a different host if your MySQL server is on a remote machine.
-        'PORT': '',  # Leave this empty to use the default MySQL port (3306).
+    "default": {
+        "ENGINE": "mysql.connector.django",
+        "NAME": "app_db",
+        "USER": "app_user",
+        "PASSWORD": os.environ.get("MYSQL_PASSWORD", "1234"),
+        "HOST": os.environ.get("MYSQL_HOST", "db"),
+        "PORT": "",
     }
 }
 
+
 # Internationalization
-# https://docs.djangoproject.com/en/1.7/topics/i18n/
 
 LANGUAGE_CODE = "en-us"
 
@@ -86,7 +87,6 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = "/static/"
 
@@ -98,12 +98,16 @@ LOGIN_URL = "/auth/login/"
 LOGOUT_URL = "/auth/logout/"
 
 
-# rest (api) framework
+# REST API framework
+
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
     ]
 }
+
+
+# Templates
 
 TEMPLATES = [
     {
