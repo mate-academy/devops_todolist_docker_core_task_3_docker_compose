@@ -1,3 +1,5 @@
+# Built by the db service in docker-compose.yml.
+# Database persistence is configured through the mysql_data named volume.
 # Use the official MySQL image from Docker Hub
 FROM mysql:latest
 
