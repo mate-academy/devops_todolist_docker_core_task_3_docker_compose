@@ -1,4 +1,5 @@
 # Use the official MySQL image from Docker Hub
+# Custom MySQL image for the Django ToDo application
 FROM mysql:latest
 
 # Environment variables for MySQL configuration
