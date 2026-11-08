@@ -1,0 +1,38 @@
+version: '5.6.1'
+networks:
+  todolist-net:
+    driver: bridge
+volumes:
+  todolist-data:
+services:
+  pythonapp:
+    image: app:1.2
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: todo_app
+    ports:
+      - "8080:80"
+    networks:
+      - todolist-net
+    depends_on:
+      - mysql
+    restart: unless-stopped
+
+  mysql:
+    image: mysql:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.mysql
+    container_name: mysql 
+    ports:
+      - "3306:3306"
+    volumes: 
+      - todolist-data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=app_db
+      - MYSQL_USER=app_user
+      - MYSQL_PASSWORD=1234
+    networks:
+      - todolist-net
