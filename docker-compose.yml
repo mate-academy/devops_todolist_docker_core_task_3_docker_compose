@@ -1,0 +1,39 @@
+version: '3'
+
+networks:
+  todo-net:
+    driver: bridge
+
+services:
+  todo-app:
+    image: todo:1.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8080"
+    networks:
+      - todo-net
+    restart: unless-stopped
+    depends_on:
+      - todo-db
+
+  todo-db:
+    image: mysql:1.0
+    build:
+      context: .
+      dockerfile: Dockerfile.mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=app_db
+      - MYSQL_USER=app_user
+      - MYSQL_PASSWORD=1234
+    networks:
+      - todo-net
+
+volumes:
+  db-data:
