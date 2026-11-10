@@ -19,10 +19,7 @@ services:
       - todo-db
 
   todo-db:
-    image: mysql:1.0
-    build:
-      context: .
-      dockerfile: Dockerfile.mysql
+    image: mysql:8.0
     ports:
       - "3306:3306"
     volumes:
