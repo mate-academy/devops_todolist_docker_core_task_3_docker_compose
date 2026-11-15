@@ -1,3 +1,9 @@
+## Prerequisites
+Docker and Docker Compose must be installed
+Docker Desktop must be running
+Open a terminal in the project root directory
+where docker-compose.yml is located
+
 ## Start the application
 docker compose up --build
 
