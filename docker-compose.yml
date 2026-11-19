@@ -1,0 +1,33 @@
+networks:
+  db-data-net:
+    driver: bridge
+services:
+  mysql:
+    build:
+      context: .
+      dockerfile: Dockerfile.mysql
+    ports:
+     - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - db-data-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+  pythonapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+     - "8081:8080"
+    networks:
+      - db-data-net
+    depends_on:
+      mysql:
+        condition: service_healthy
+volumes:
+  db-data:
+    driver: local
