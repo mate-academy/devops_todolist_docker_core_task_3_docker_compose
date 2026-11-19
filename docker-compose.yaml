@@ -1,6 +1,7 @@
 networks:
   my-network:
     driver: bridge
+
 services:
   pythonapp:
     image: todoapp3:1.0
