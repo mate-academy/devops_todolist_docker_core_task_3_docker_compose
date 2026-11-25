@@ -1,0 +1,44 @@
+networks:
+    my_network:
+      driver: bridge
+services:
+  app:
+    image: my-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks: 
+      - my_network
+    ports:
+      - "8080:8080"
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+  mysql:
+    image: my-sql
+    build:
+      context: .
+      dockerfile: Dockerfile.mysql
+    container_name: my-sql
+    ports:
+      - "3306:3306"
+    networks: 
+      - my_network
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=app_db
+      - MYSQL_USER=app_user
+      - MYSQL_PASSWORD=1234
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+volumes:
+  db_data:
+    driver: local
